@@ -9,28 +9,28 @@ export default function BottomTabBar() {
 		<View style={styles.container}>
 			<Link href="/" asChild>
 				<TouchableOpacity style={styles.tab}>
-					<Ionicons name="play" size={24} color="white" />
-					<Text style={styles.tabText}>Feed</Text>
+					<Ionicons name="home" size={28} color="white" />
+					<Text style={styles.tabText}>Home</Text>
 				</TouchableOpacity>
 			</Link>
 
-			<Link href="/team" asChild>
+			<Link href="/challenges" asChild>
 				<TouchableOpacity style={styles.tab}>
-					<Ionicons name="people" size={24} color="white" />
-					<Text style={styles.tabText}>Team</Text>
+					<Ionicons name="trophy" size={28} color="white" />
+					<Text style={styles.tabText}>Challenges</Text>
 				</TouchableOpacity>
 			</Link>
 
-			<Link href="/create" asChild>
+			<Link href="/chat" asChild>
 				<TouchableOpacity style={styles.tab}>
-					<Ionicons name="trophy" size={24} color="white" />
-					<Text style={styles.tabText}>Challenge</Text>
+					<Ionicons name="chatbubbles" size={28} color="white" />
+					<Text style={styles.tabText}>Chat</Text>
 				</TouchableOpacity>
 			</Link>
 
 			<Link href="/profile" asChild>
 				<TouchableOpacity style={styles.tab}>
-					<Ionicons name="person" size={24} color="white" />
+					<Ionicons name="person" size={28} color="white" />
 					<Text style={styles.tabText}>Profile</Text>
 				</TouchableOpacity>
 			</Link>
@@ -41,12 +41,15 @@ export default function BottomTabBar() {
 const styles = {
 	container: {
 		flexDirection: "row" as const,
-		height: 60,
-		backgroundColor: "#000",
+		height: 70,
+		backgroundColor: "#6B4EFF",
 		position: "absolute" as const,
 		bottom: 0,
 		left: 0,
-		right: 0
+		right: 0,
+		borderTopWidth: 2,
+		borderTopColor: "#8B6FFF",
+		paddingBottom: 8
 	},
 	tab: {
 		flex: 1,
@@ -55,8 +58,9 @@ const styles = {
 		paddingVertical: 8
 	},
 	tabText: {
-		fontSize: 10,
+		fontSize: 12,
+		fontWeight: "600" as const,
 		color: "white",
-		marginTop: 3
+		marginTop: 4
 	}
 }

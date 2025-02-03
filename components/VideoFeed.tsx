@@ -11,6 +11,12 @@ import Animated, {
 // Get screen dimensions
 const { width, height } = Dimensions.get("window")
 
+// Add bottom tab bar height constant
+const TAB_BAR_HEIGHT = 70
+
+// Update height calculation to account for tab bar
+const screenHeight = height - TAB_BAR_HEIGHT
+
 // Move interface declarations up
 interface VideoCardProps {
 	title: string
@@ -24,7 +30,7 @@ interface Video {
 }
 
 const VideoCard = ({ title, thumbnailUrl }: VideoCardProps) => (
-	<View style={styles.card}>
+	<View style={[styles.card, { height: screenHeight }]}>
 		<Image
 			source={{ uri: thumbnailUrl }}
 			style={styles.thumbnail}
@@ -51,7 +57,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 		},
 		onEndDrag: (event) => {
 			const offsetY = event.contentOffset.y
-			const snapPoint = Math.round(offsetY / height) * height
+			const snapPoint = Math.round(offsetY / screenHeight) * screenHeight
 
 			translationY.value = withSpring(snapPoint, {
 				damping: 50,
@@ -73,7 +79,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 			)}
 			keyExtractor={(item) => item.id}
 			pagingEnabled
-			snapToInterval={height}
+			snapToInterval={screenHeight}
 			decelerationRate="fast"
 			showsVerticalScrollIndicator={false}
 			onScroll={scrollHandler}
@@ -85,7 +91,6 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 const styles = StyleSheet.create({
 	card: {
 		width: width,
-		height: height,
 		backgroundColor: "#000",
 		position: "relative"
 	},
