@@ -22,7 +22,7 @@ React Server Components enable a number of exciting capabilities, including:
 - Server-side rendering (SSR) for SEO and performance.
 - Build-time rendering to remove unused JS code.
 
-Expo Router enables support for [React Server Components](https://react.dev/reference/rsc/server-components) on all platforms. This is an early preview of a feature that will be enabled by default in Expo Router.
+Expo Router enables support for [React Server Components](mdc:https:/react.dev/reference/rsc/server-components) on all platforms. This is an early preview of a feature that will be enabled by default in Expo Router.
 
 ## Prerequisites
 
@@ -379,7 +379,7 @@ You can detect if code is running on the server by performing a `typeof window =
 
 ## Testing with jest
 
-Library authors can test their modules support Server Components by using `jest-expo`. Learn more in the [Testing React Server Components](/guides/testing-rsc) guide.
+Library authors can test their modules support Server Components by using `jest-expo`. Learn more in the [Testing React Server Components](mdc:guides/testing-rsc) guide.
 
 ## Metadata
 
@@ -585,7 +585,7 @@ You can experimentally deploy your native React Server Components by following t
 - DOM components cannot use React Server Functions in production yet.
 - Production deployment is limited and not recommended yet.
 - Server Rendering RSC payloads to HTML is not supported yet. This means static and server output doesn't fully work yet.
-- [`generateStaticParams`](/router/reference/static-rendering/#generatestaticparams) is only partially supported in full React Server Components mode.
+- [`generateStaticParams`](mdc:router/reference/static-rendering/#generatestaticparams) is only partially supported in full React Server Components mode.
 - HTML `form` integration with Server Functions is not supported yet (this partially works automatically, but data is not encrypted).
 - `StyleSheet.create` and `Platform.OS` are not supported on native. Use standard objects for styles and `process.env.EXPO_OS` for platform detection.
 - React Server Functions that invoke other Server Functions are not supported on Hermes due to a limitation in the Hermes runtime. This may be resolved with Static Hermes.

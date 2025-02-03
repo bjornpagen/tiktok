@@ -21,10 +21,10 @@ export default function BottomTabBar() {
 				</TouchableOpacity>
 			</Link>
 
-			<Link href="/chat" asChild>
+			<Link href="/interests" asChild>
 				<TouchableOpacity style={styles.tab}>
-					<Ionicons name="chatbubbles" size={28} color="white" />
-					<Text style={styles.tabText}>Chat</Text>
+					<Ionicons name="heart" size={28} color="white" />
+					<Text style={styles.tabText}>Interests</Text>
 				</TouchableOpacity>
 			</Link>
 
