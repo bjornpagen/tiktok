@@ -1,10 +1,10 @@
 import { View, StyleSheet } from "react-native"
 import BottomTabBar from "@/components/BottomTabBar"
 import ChallengeList from "@/components/ChallengeList"
-import ServerChallengeList from "@/server/components/ServerChallengeList.server"
+import { fetchChallenges } from "@/server/data/challenges"
 
 export default async function ChallengesPage() {
-	const challenges = await ServerChallengeList()
+	const challenges = await fetchChallenges()
 
 	return (
 		<View style={styles.container}>
