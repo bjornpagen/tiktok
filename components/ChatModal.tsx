@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
 	Modal,
 	View,
@@ -21,7 +21,7 @@ interface Message {
 interface ChatModalProps {
 	visible: boolean
 	onClose: () => void
-	videoTitle?: string
+	videoTitle: string
 }
 
 export function ChatModal({ visible, onClose, videoTitle }: ChatModalProps) {
@@ -29,10 +29,21 @@ export function ChatModal({ visible, onClose, videoTitle }: ChatModalProps) {
 	const [messages, setMessages] = useState<Message[]>([
 		{
 			id: "1",
-			text: "Hi friend! 👋 What did you learn from this video? Let's practice together!",
+			text: `Hi friend! 👋 What did you learn from "${videoTitle}"? Let's practice together!`,
 			isUser: false
 		}
 	])
+
+	// Update initial message when video title changes
+	useEffect(() => {
+		setMessages([
+			{
+				id: "1",
+				text: `Hi friend! 👋 What did you learn from "${videoTitle}"? Let's practice together!`,
+				isUser: false
+			}
+		])
+	}, [videoTitle])
 
 	const handleSend = async () => {
 		if (!message.trim()) {

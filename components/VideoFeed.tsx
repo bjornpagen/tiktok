@@ -59,6 +59,13 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 	const [videos] = useState(initialVideos)
 	const flatListRef = useRef<FlatList<Video>>(null)
 	const [isChatVisible, setIsChatVisible] = useState(false)
+	const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+
+	const handleScroll = (event: any) => {
+		const offsetY = event.nativeEvent.contentOffset.y
+		const index = Math.floor(offsetY / screenHeight)
+		setCurrentVideoIndex(index)
+	}
 
 	return (
 		<View style={styles.container}>
@@ -82,8 +89,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 				removeClippedSubviews={true}
 				maxToRenderPerBatch={2}
 				windowSize={3}
-				onMomentumScrollBegin={() => {}}
-				onMomentumScrollEnd={() => {}}
+				onScroll={handleScroll}
 				bounces={false}
 			/>
 
@@ -94,7 +100,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 			<ChatModal
 				visible={isChatVisible}
 				onClose={() => setIsChatVisible(false)}
-				videoTitle="Current Video Title" // TODO: Pass actual video title
+				videoTitle={videos[currentVideoIndex]?.title}
 			/>
 		</View>
 	)
