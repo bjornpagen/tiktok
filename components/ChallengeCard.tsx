@@ -13,38 +13,57 @@ export interface ChallengeCardProps {
 function getTimeRemaining(deadline: string): string {
 	const now = new Date()
 	const end = new Date(deadline)
-	const hoursLeft = Math.max(
-		0,
-		Math.ceil((end.getTime() - now.getTime()) / (1000 * 3600))
-	)
+	const diffMs = end.getTime() - now.getTime()
+	const diffHours = Math.max(0, Math.ceil(diffMs / (1000 * 3600)))
 
-	if (hoursLeft === 0) {
+	if (diffHours === 0) {
 		return "Expired"
 	}
-	if (hoursLeft < 24) {
-		return `${hoursLeft}h left`
+
+	if (diffHours < 24) {
+		return `${diffHours}h left`
 	}
-	const days = Math.floor(hoursLeft / 24)
-	return `${days}d left`
+
+	const days = Math.floor(diffHours / 24)
+	const hours = diffHours % 24
+
+	if (hours === 0) {
+		return `${days}d left`
+	}
+
+	return `${days}d ${hours}h left`
+}
+
+function getExpiryText(expiry: Challenge["expiry"]): string {
+	if (expiry.type === "time") {
+		return getTimeRemaining(expiry.deadline)
+	}
+	// Make the participant count more descriptive
+	const spotsLeft = expiry.maxClaims - expiry.currentClaims
+	return `${spotsLeft} spots left`
 }
 
 export default function ChallengeCard({
 	challenge,
 	onPress
 }: ChallengeCardProps) {
-	const [timeLeft, setTimeLeft] = useState(() =>
-		getTimeRemaining(challenge.deadline)
+	const [expiryText, setExpiryText] = useState(() =>
+		getExpiryText(challenge.expiry)
 	)
 	const progress = (challenge.progress.current / challenge.progress.total) * 100
 
-	// Update time remaining every minute
+	// Update time remaining every minute only for time-based challenges
 	useEffect(() => {
+		if (challenge.expiry.type !== "time") {
+			return
+		}
+
 		const timer = setInterval(() => {
-			setTimeLeft(getTimeRemaining(challenge.deadline))
+			setExpiryText(getExpiryText(challenge.expiry))
 		}, 60000) // every minute
 
 		return () => clearInterval(timer)
-	}, [challenge.deadline])
+	}, [challenge.expiry])
 
 	return (
 		<TouchableOpacity onPress={onPress}>
@@ -69,8 +88,16 @@ export default function ChallengeCard({
 				</View>
 
 				<View style={styles.timeContainer}>
-					<Ionicons name="time-outline" size={14} color="#666" />
-					<Text style={styles.timeText}>{timeLeft}</Text>
+					<Ionicons
+						name={
+							challenge.expiry.type === "time"
+								? "time-outline"
+								: "people-outline"
+						}
+						size={14}
+						color="#666"
+					/>
+					<Text style={styles.timeText}>{expiryText}</Text>
 				</View>
 			</View>
 		</TouchableOpacity>

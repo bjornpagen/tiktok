@@ -9,7 +9,19 @@ export interface Challenge {
 		current: number
 		total: number
 	}
+	expiry: TimeBasedExpiry | ParticipantBasedExpiry
+	difficulty: string
+}
+
+export interface TimeBasedExpiry {
+	type: "time"
 	deadline: string // ISO date string
+}
+
+export interface ParticipantBasedExpiry {
+	type: "participants"
+	maxClaims: number
+	currentClaims: number
 }
 
 interface Word {
@@ -41,7 +53,11 @@ const dummyChallenges: Challenge[] = [
 			current: 2,
 			total: 5
 		},
-		deadline: new Date(Date.now() + 23 * 3600 * 1000).toISOString() // 23 hours from now
+		expiry: {
+			type: "time",
+			deadline: new Date(Date.now() + 53 * 3600 * 1000).toISOString()
+		},
+		difficulty: "Beginner"
 	},
 	{
 		id: "2",
@@ -52,7 +68,12 @@ const dummyChallenges: Challenge[] = [
 			current: 0,
 			total: 8
 		},
-		deadline: new Date(Date.now() + 47 * 3600 * 1000).toISOString() // 47 hours from now
+		expiry: {
+			type: "participants",
+			maxClaims: 50,
+			currentClaims: 38
+		},
+		difficulty: "Intermediate"
 	},
 	{
 		id: "3",
@@ -63,7 +84,11 @@ const dummyChallenges: Challenge[] = [
 			current: 4,
 			total: 6
 		},
-		deadline: new Date(Date.now() + 12 * 3600 * 1000).toISOString() // 12 hours from now
+		expiry: {
+			type: "time",
+			deadline: new Date(Date.now() + 16.5 * 3600 * 1000).toISOString()
+		},
+		difficulty: "Advanced"
 	},
 	{
 		id: "4",
@@ -74,7 +99,11 @@ const dummyChallenges: Challenge[] = [
 			current: 1,
 			total: 7
 		},
-		deadline: new Date(Date.now() + 36 * 3600 * 1000).toISOString() // 36 hours from now
+		expiry: {
+			type: "time",
+			deadline: new Date(Date.now() + 80 * 3600 * 1000).toISOString()
+		},
+		difficulty: "Intermediate"
 	},
 	{
 		id: "5",
@@ -85,7 +114,12 @@ const dummyChallenges: Challenge[] = [
 			current: 0,
 			total: 4
 		},
-		deadline: new Date(Date.now() + 18 * 3600 * 1000).toISOString() // 18 hours from now
+		expiry: {
+			type: "participants",
+			maxClaims: 30,
+			currentClaims: 27
+		},
+		difficulty: "Beginner"
 	},
 	{
 		id: "6",
@@ -97,7 +131,11 @@ const dummyChallenges: Challenge[] = [
 			current: 3,
 			total: 6
 		},
-		deadline: new Date(Date.now() + 28 * 3600 * 1000).toISOString() // 28 hours from now
+		expiry: {
+			type: "time",
+			deadline: new Date(Date.now() + 28 * 3600 * 1000).toISOString()
+		},
+		difficulty: "Intermediate"
 	}
 ]
 
@@ -118,11 +156,15 @@ export async function fetchChallengeDetails(
 		description:
 			"Learn and practice essential greeting phrases to start conversations confidently.",
 		points: 100,
-		deadline: new Date(Date.now() + 172800000).toISOString(), // 48 hours from now
 		progress: {
 			current: 3,
 			total: 5
 		},
+		expiry: {
+			type: "time",
+			deadline: new Date(Date.now() + 172800000).toISOString() // 48 hours from now
+		},
+		difficulty: "Beginner",
 		words: [
 			{ word: "Hello", learned: true, lastPracticed: "2024-03-10" },
 			{ word: "Goodbye", learned: true, lastPracticed: "2024-03-09" },

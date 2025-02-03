@@ -19,6 +19,13 @@ export default function BottomTabBar() {
 				</TouchableOpacity>
 			</Link>
 
+			<Link href="/leaderboard" asChild>
+				<TouchableOpacity style={styles.tab}>
+					<Ionicons name="podium" size={28} color="white" />
+					<Text style={styles.tabText}>Leaderboard</Text>
+				</TouchableOpacity>
+			</Link>
+
 			<Link href="/interests" asChild>
 				<TouchableOpacity style={styles.tab}>
 					<Ionicons name="heart" size={28} color="white" />

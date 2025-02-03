@@ -1,20 +1,24 @@
 import { View, Text, StyleSheet } from "react-native"
+import { Suspense } from "react"
+import { fetchLeaderboard } from "@/server/data/leaderboard"
+import LeaderboardList from "@/components/LeaderboardList"
+import LoadingLeaderboard from "@/components/LoadingLeaderboard"
 import BottomTabBar from "@/components/BottomTabBar"
-import ChallengeList from "@/components/ChallengeList"
-import { fetchChallenges } from "@/server/data/challenges"
 
-export default async function ChallengesPage() {
-	const challenges = await fetchChallenges()
+export default async function LeaderboardPage() {
+	const entries = await fetchLeaderboard()
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Text style={styles.title}>Language Challenges</Text>
+				<Text style={styles.title}>Leaderboard</Text>
 				<Text style={styles.subtitle}>
-					Complete challenges to earn points and improve your language skills
+					See how you rank against other language learners
 				</Text>
 			</View>
-			<ChallengeList challenges={challenges} />
+			<Suspense fallback={<LoadingLeaderboard />}>
+				<LeaderboardList entries={entries} />
+			</Suspense>
 			<BottomTabBar />
 		</View>
 	)

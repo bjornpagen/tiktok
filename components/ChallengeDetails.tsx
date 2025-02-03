@@ -15,12 +15,23 @@ interface Word {
 	lastPracticed?: string
 }
 
+interface TimeBasedExpiry {
+	type: "time"
+	deadline: string
+}
+
+interface ParticipantBasedExpiry {
+	type: "participants"
+	currentClaims: number
+	maxClaims: number
+}
+
 interface ChallengeDetailsProps {
 	details: {
 		id: string
 		title: string
 		description: string
-		deadline: string
+		expiry: TimeBasedExpiry | ParticipantBasedExpiry
 		points: number
 		progress: {
 			current: number
@@ -31,7 +42,50 @@ interface ChallengeDetailsProps {
 	}
 }
 
+function formatDeadline(deadline: string): string {
+	const date = new Date(deadline)
+	const now = new Date()
+	const diffMs = date.getTime() - now.getTime()
+	const diffHours = Math.max(0, Math.ceil(diffMs / (1000 * 3600)))
+
+	if (diffHours === 0) {
+		return "Challenge expired"
+	}
+
+	// Format the actual date
+	const dateStr = date.toLocaleDateString(undefined, {
+		weekday: "long",
+		year: "numeric",
+		month: "long",
+		day: "numeric"
+	})
+
+	// Add remaining time
+	if (diffHours < 24) {
+		return `Ends ${dateStr} (${diffHours}h remaining)`
+	}
+
+	const days = Math.floor(diffHours / 24)
+	const hours = diffHours % 24
+
+	if (hours === 0) {
+		return `Ends ${dateStr} (${days}d remaining)`
+	}
+
+	return `Ends ${dateStr} (${days}d ${hours}h remaining)`
+}
+
+function formatParticipants(expiry: ParticipantBasedExpiry): string {
+	const spotsLeft = expiry.maxClaims - expiry.currentClaims
+	return `${spotsLeft} spots remaining (${expiry.currentClaims}/${expiry.maxClaims} joined)`
+}
+
 export default function ChallengeDetails({ details }: ChallengeDetailsProps) {
+	const expiryText =
+		details.expiry.type === "time"
+			? formatDeadline(details.expiry.deadline)
+			: formatParticipants(details.expiry)
+
 	return (
 		<ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 			<Link href="../" style={styles.backButton}>
@@ -47,6 +101,16 @@ export default function ChallengeDetails({ details }: ChallengeDetailsProps) {
 			</View>
 
 			<Text style={styles.description}>{details.description}</Text>
+			<View style={styles.expiryContainer}>
+				<Ionicons
+					name={
+						details.expiry.type === "time" ? "time-outline" : "people-outline"
+					}
+					size={18}
+					color="#666"
+				/>
+				<Text style={styles.expiryText}>{expiryText}</Text>
+			</View>
 
 			<View>
 				<Text style={styles.sectionTitle}>Words to Learn</Text>
@@ -208,5 +272,18 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "#666",
 		width: 45
+	},
+	expiryContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		backgroundColor: "#f5f5f5",
+		padding: 12,
+		borderRadius: 8,
+		marginBottom: 24
+	},
+	expiryText: {
+		fontSize: 14,
+		color: "#666",
+		marginLeft: 8
 	}
 })

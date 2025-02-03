@@ -12,7 +12,7 @@ import type { Interest } from "@/server/data/interests"
 
 interface InterestPickerProps {
 	interests: Interest[]
-	onUpdateInterests: (
+	onUpdateInterests?: (
 		selectedIds: { categoryId: string; subInterestIds: string[] }[]
 	) => Promise<void>
 }
@@ -40,96 +40,92 @@ export default function InterestPicker({
 		categoryId: string,
 		subInterestId: string
 	) => {
-		const newSubInterests = new Map(selectedSubInterests)
-		const categorySubInterests = new Set(newSubInterests.get(categoryId))
+		const newSelected = new Map(selectedSubInterests)
+		const categorySet = newSelected.get(categoryId)
 
-		if (categorySubInterests.has(subInterestId)) {
-			categorySubInterests.delete(subInterestId)
+		if (categorySet?.has(subInterestId)) {
+			categorySet.delete(subInterestId)
 		} else {
-			categorySubInterests.add(subInterestId)
+			categorySet?.add(subInterestId)
 		}
 
-		newSubInterests.set(categoryId, categorySubInterests)
-		setSelectedSubInterests(newSubInterests)
+		setSelectedSubInterests(newSelected)
 
-		// Update with all selected interests
-		const selectedData = Array.from(newSubInterests.entries())
-			.filter(([_, subInterests]) => subInterests.size > 0)
-			.map(([categoryId, subInterests]) => ({
-				categoryId,
-				subInterestIds: Array.from(subInterests)
-			}))
-		await onUpdateInterests(selectedData)
+		if (onUpdateInterests) {
+			const selectedIds = Array.from(newSelected.entries()).map(
+				([categoryId, subInterests]) => ({
+					categoryId,
+					subInterestIds: Array.from(subInterests)
+				})
+			)
+			await onUpdateInterests(selectedIds)
+		}
 	}
 
 	return (
-		<ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-			<Text style={styles.title}>Select Your Interests</Text>
-			<Text style={styles.subtitle}>
-				Choose topics you'd like to learn about. This helps us personalize your
-				video feed.
-			</Text>
-
-			<View style={styles.categoriesContainer}>
-				{interests.map((category) => (
-					<View key={category.id} style={styles.categorySection}>
+		<ScrollView
+			style={styles.container}
+			contentContainerStyle={styles.content}
+			showsVerticalScrollIndicator={false}
+		>
+			{interests.map((category) => (
+				<View key={category.id} style={styles.card}>
+					<View style={styles.categorySection}>
 						<Text style={styles.categoryHeader}>{category.name}</Text>
 						<View style={styles.pillsContainer}>
-							{category.subInterests.map((subInterest) => (
-								<TouchableOpacity
-									key={subInterest.id}
-									style={[
-										styles.pill,
-										selectedSubInterests
-											.get(category.id)
-											?.has(subInterest.id) && styles.selectedPill
-									]}
-									onPress={() => toggleSubInterest(category.id, subInterest.id)}
-								>
-									<Text
-										style={[
-											styles.pillText,
-											selectedSubInterests
-												.get(category.id)
-												?.has(subInterest.id) && styles.selectedPillText
-										]}
+							{category.subInterests.map((subInterest) => {
+								const isSelected = selectedSubInterests
+									.get(category.id)
+									?.has(subInterest.id)
+								return (
+									<TouchableOpacity
+										key={subInterest.id}
+										style={[styles.pill, isSelected && styles.selectedPill]}
+										onPress={() =>
+											toggleSubInterest(category.id, subInterest.id)
+										}
 									>
-										{subInterest.name}
-									</Text>
-								</TouchableOpacity>
-							))}
+										<Text
+											style={[
+												styles.pillText,
+												isSelected && styles.selectedPillText
+											]}
+										>
+											{subInterest.name}
+										</Text>
+									</TouchableOpacity>
+								)
+							})}
 						</View>
 					</View>
-				))}
-			</View>
+				</View>
+			))}
 		</ScrollView>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		backgroundColor: "#F5F5F5"
 	},
-	title: {
-		fontSize: 24,
-		fontWeight: "700",
-		color: "#333",
-		marginBottom: 8,
-		paddingHorizontal: 16
+	content: {
+		padding: 16,
+		paddingBottom: 90 // Account for bottom tab bar
 	},
-	subtitle: {
-		fontSize: 16,
-		color: "#666",
-		marginBottom: 24,
-		lineHeight: 22,
-		paddingHorizontal: 16
-	},
-	categoriesContainer: {
-		paddingBottom: 100 // Account for bottom tab bar
+	card: {
+		backgroundColor: "white",
+		borderRadius: 12,
+		marginBottom: 16,
+		elevation: 2,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.1,
+		shadowRadius: 2
 	},
 	categorySection: {
-		marginBottom: 24,
-		paddingHorizontal: 16
+		paddingHorizontal: 16,
+		paddingVertical: 16
 	},
 	categoryHeader: {
 		fontSize: 20,
@@ -147,14 +143,19 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 		paddingHorizontal: 16,
 		paddingVertical: 8,
-		margin: 4
+		margin: 4,
+		minHeight: 36,
+		justifyContent: "center",
+		alignItems: "center"
 	},
 	selectedPill: {
 		backgroundColor: "#6B4EFF"
 	},
 	pillText: {
 		fontSize: 14,
-		color: "#666"
+		color: "#666",
+		fontWeight: "500",
+		textAlignVertical: "center"
 	},
 	selectedPillText: {
 		color: "white",
