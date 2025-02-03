@@ -3,6 +3,7 @@
 import { View, Text, Image, StyleSheet } from "react-native"
 import type { LanguageLevel } from "@/server/data/types"
 import StatsDisplay from "./StatsDisplay"
+import { formatNumber } from "@/utils/format"
 
 interface ProfileHeaderProps {
 	profile: {
@@ -21,7 +22,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
 			<Text style={styles.name}>{profile.name}</Text>
 			<Text style={styles.bio}>{profile.bio}</Text>
 			<StatsDisplay
-				stars={profile.stars}
+				stars={formatNumber(profile.stars)}
 				currentLanguage={profile.currentLanguage}
 			/>
 		</View>

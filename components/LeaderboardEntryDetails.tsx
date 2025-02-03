@@ -6,6 +6,7 @@ import { Link } from "expo-router"
 import type { LeaderboardEntryDetails } from "@/server/data/leaderboard"
 import StatsGrid from "./StatsGrid"
 import StatsDisplay from "./StatsDisplay"
+import { formatNumber } from "@/utils/format"
 
 interface LeaderboardEntryDetailsProps {
 	details: LeaderboardEntryDetails
@@ -28,7 +29,7 @@ export default function LeaderboardEntryDetails({
 				<Image source={{ uri: details.avatarUrl }} style={styles.avatar} />
 				<Text style={styles.name}>{details.name}</Text>
 				<StatsDisplay
-					stars={details.stars}
+					stars={formatNumber(details.stars)}
 					currentLanguage={details.currentLanguage}
 				/>
 			</View>

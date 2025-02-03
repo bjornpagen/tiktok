@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native"
 import type { LanguageLevel } from "@/server/data/types"
 
 interface StatsDisplayProps {
-	stars: number
+	stars: string
 	currentLanguage: LanguageLevel
 }
 
