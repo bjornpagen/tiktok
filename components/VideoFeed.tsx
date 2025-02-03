@@ -9,6 +9,8 @@ import {
 	Dimensions,
 	FlatList
 } from "react-native"
+import { ChatButton } from "./ChatButton"
+import { ChatModal } from "./ChatModal"
 
 // Get screen dimensions
 const { width, height } = Dimensions.get("window")
@@ -22,16 +24,18 @@ const screenHeight = height - TAB_BAR_HEIGHT
 // Move interface declarations up
 interface VideoCardProps {
 	title: string
+	description: string
 	thumbnailUrl: string
 }
 
 interface Video {
 	id: string
 	title: string
+	description: string
 	thumbnailUrl: string
 }
 
-const VideoCard = ({ title, thumbnailUrl }: VideoCardProps) => (
+const VideoCard = ({ title, description, thumbnailUrl }: VideoCardProps) => (
 	<View style={[styles.card, { height: screenHeight }]}>
 		<Image
 			source={{ uri: thumbnailUrl }}
@@ -39,7 +43,10 @@ const VideoCard = ({ title, thumbnailUrl }: VideoCardProps) => (
 			resizeMode="cover"
 		/>
 		<View style={styles.titleContainer}>
-			<Text style={styles.title}>{title}</Text>
+			<View style={styles.contentBubble}>
+				<Text style={styles.title}>{title}</Text>
+				<Text style={styles.description}>{description}</Text>
+			</View>
 		</View>
 	</View>
 )
@@ -51,32 +58,53 @@ interface VideoFeedProps {
 export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 	const [videos] = useState(initialVideos)
 	const flatListRef = useRef<FlatList<Video>>(null)
+	const [isChatVisible, setIsChatVisible] = useState(false)
 
 	return (
-		<FlatList
-			ref={flatListRef}
-			data={videos}
-			renderItem={({ item }) => (
-				<VideoCard title={item.title} thumbnailUrl={item.thumbnailUrl} />
-			)}
-			keyExtractor={(item) => item.id}
-			pagingEnabled
-			snapToInterval={screenHeight}
-			snapToAlignment="start"
-			decelerationRate={0.1}
-			showsVerticalScrollIndicator={false}
-			scrollEventThrottle={16}
-			removeClippedSubviews={true}
-			maxToRenderPerBatch={2}
-			windowSize={3}
-			onMomentumScrollBegin={() => {}}
-			onMomentumScrollEnd={() => {}}
-			bounces={false}
-		/>
+		<View style={styles.container}>
+			<FlatList
+				ref={flatListRef}
+				data={videos}
+				renderItem={({ item }) => (
+					<VideoCard
+						title={item.title}
+						description={item.description}
+						thumbnailUrl={item.thumbnailUrl}
+					/>
+				)}
+				keyExtractor={(item) => item.id}
+				pagingEnabled
+				snapToInterval={screenHeight}
+				snapToAlignment="start"
+				decelerationRate={0.1}
+				showsVerticalScrollIndicator={false}
+				scrollEventThrottle={16}
+				removeClippedSubviews={true}
+				maxToRenderPerBatch={2}
+				windowSize={3}
+				onMomentumScrollBegin={() => {}}
+				onMomentumScrollEnd={() => {}}
+				bounces={false}
+			/>
+
+			<View style={styles.chatButtonContainer}>
+				<ChatButton onPress={() => setIsChatVisible(true)} />
+			</View>
+
+			<ChatModal
+				visible={isChatVisible}
+				onClose={() => setIsChatVisible(false)}
+				videoTitle="Current Video Title" // TODO: Pass actual video title
+			/>
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: "#000"
+	},
 	card: {
 		width: width,
 		backgroundColor: "#000",
@@ -89,17 +117,36 @@ const styles = StyleSheet.create({
 	},
 	titleContainer: {
 		position: "absolute",
-		bottom: 0,
+		bottom: 20,
 		left: 0,
 		right: 0,
-		padding: 20
+		padding: 16
+	},
+	contentBubble: {
+		backgroundColor: "#4A90E2",
+		borderRadius: 20,
+		padding: 12,
+		maxWidth: "65%",
+		marginLeft: 8,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5
 	},
 	title: {
 		fontSize: 16,
+		fontWeight: "700",
 		color: "#ffffff",
-		textShadowColor: "rgba(0, 0, 0, 0.75)",
-		textShadowOffset: { width: -1, height: 1 },
-		textShadowRadius: 10
+		marginBottom: 4
+	},
+	description: {
+		fontSize: 13,
+		color: "#ffffff",
+		lineHeight: 18
 	},
 	loaderContainer: {
 		width: width,
@@ -107,5 +154,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "#000"
+	},
+	chatButtonContainer: {
+		position: "absolute",
+		bottom: 20, // Matches the titleContainer bottom in VideoCard
+		right: 16,
+		zIndex: 1000
 	}
 })
