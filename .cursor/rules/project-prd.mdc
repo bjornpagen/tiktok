@@ -1,0 +1,400 @@
+---
+description: 
+globs: 
+---
+TinyLingo
+
+Below is the updated plan for TinyLingo, reordering and refining the features based on your feedback. The new ordering emphasizes the most essential functions first, places the onboarding flow as a high-priority early step, and integrates the gamification/metrics aspect for comparing language level with friends.
+
+---
+
+# TinyLingo: Next-Gen Language Learning for Kids
+
+### **Concept**
+
+TinyLingo immerses kids (ages 4–12) in the joys of language learning through bite-sized, engaging, and interactive content. At its core, the app presents an infinite scrolling feed of AI-generated story videos filled with comprehensible input (stories, everyday scenarios, and songs) that naturally introduce vocabulary and language structures. By combining personalized content, immersive onboarding, interactive conversations, gamified challenges with metrics and peer comparisons, and robust user profile management, TinyLingo creates a highly tailored and fun learning environment.
+
+---
+
+### **Unique Features (Ranked in Order of Importance)**
+
+#### 1. Infinite Engaging Video Feed
+- **User Story:**  
+  _As a young learner, I want an infinite scrolling feed of AI-generated story videos—with rich visuals, relatable narratives, and comprehensible input techniques—so that I can immerse myself in continuous, fun, and language-appropriate content without interruptions._
+- **Acceptance Criteria:**
+  - The home screen displays a vertically scrolling, auto-playing video feed similar to TikTok.
+  - Videos are generated or curated with simple narratives that naturally integrate language input.
+  - New videos load seamlessly as I scroll for an uninterrupted learning experience.
+  - The interface is highly visual and child-friendly, with minimal distractions.
+
+#### 2. Personalized Interests & Curated Content
+- **User Story:**  
+  _As a learner (or with parental guidance), I want to select personal interests by choosing topics from a list or entering keywords, so that the app’s content is tailored to my tastes and remains engaging and relevant._
+- **Acceptance Criteria:**
+  - A dedicated “Interests” page allows me to select from predefined topics (e.g., animals, sports, space, fairy tales) or input custom keywords.
+  - My selected interests are stored in my profile and used to curate upcoming video content.
+  - The app periodically prompts me to update or refine my interests.
+  - An optional channel view displays only videos matching my chosen interests.
+
+#### 3. Onboarding Flow
+- **User Story:**  
+  _As a new learner (with parental support), I want a guided, interactive onboarding experience so that I understand how to create my account, provide parental consent where needed, select my target language, and set initial interests, ensuring I can effectively use TinyLingo._
+- **Acceptance Criteria:**
+  - An engaging, step-by-step tutorial introduces TinyLingo’s core features.
+  - The onboarding flow covers registration, parental consent (if required), target language selection, and initial interest setup.
+  - Clear visual cues, interactive elements, and brief tutorials help both kids and parents understand the app.
+  - The onboarding settings integrate with the ongoing experience so that choices made are reflected in the video feed, recommendations, and user profile.
+
+#### 4. Gamified Social Language Challenges (Metrics & Peer Comparison)
+- **User Story:**  
+  _As a learner, I want to engage in gamified language challenges that test my vocabulary and comprehension, compare my language level with friends, and earn rewards so that I stay motivated and track my progress relative to my peers._
+- **Acceptance Criteria:**
+  - A “Challenge a Friend” button enables learners to join language-based duels built on metric-driven tasks (e.g., vocabulary matching, multiple-choice questions) designed around the video content.
+  - Challenges display clear metrics, such as quiz scores or language level indicators, so I can see how I compare with other learners.
+  - After completing challenges, instant feedback is provided alongside digital rewards (points, badges, stickers) and progress is updated in my user profile.
+  - A leaderboard (or comparative metric view) shows my performance relative to my friends, promoting friendly competition and continuous improvement.
+  
+#### 5. AI-Powered Interactive Conversations
+- **User Story:**  
+  _As a learner, after watching a video, I want the app to initiate an interactive conversation about the content so that I can ask questions and respond in my target language—thereby reinforcing my comprehension through contextual dialogue._
+- **Acceptance Criteria:**
+  - A chat interface automatically appears after each video with preset conversational questions related to the content.
+  - The conversation supports two-way interactions, letting me ask follow-up questions and receive context-relevant responses.
+  - The language and tone of the prompts adapt to my current proficiency level.
+  - Built-in hints and light corrections help guide the conversation and reinforce learning.
+
+#### 6. User Profile & Account Settings
+- **User Story:**  
+  _As a learner (or with parental support), I want a robust profile to manage my account settings, update my selected target language, adjust my interests, and review my rewards and progress, ensuring I can personalize and control my learning experience._
+- **Acceptance Criteria:**
+  - A dedicated profile page displays my avatar, earned badges, progress reports, and reward history.
+  - Built-in tools allow me (or my parent) to change account settings, such as the target language, interests, and notification preferences.
+  - The profile interface is intuitive and reflects changes in real time (e.g., updated language settings influence video recommendations).
+  - Preferences and progress are securely stored and easily accessible across the app.
+
+---
+
+### **Monetization Opportunities**
+
+- **Subscription Model:**  
+  Offer monthly or yearly subscriptions that unlock premium content (e.g., exclusive videos, deeper conversational prompts, bonus onboarding tutorials), with a free trial period for parents to evaluate the app.
+  
+- **In-App Purchases:**  
+  Provide themed content bundles, language expansion packs, holiday specials, and avatar customization items available via one-time purchases.
+  
+- **Educational Partnerships:**  
+  Partner with schools and language institutes for integration into classroom instruction through institutional licensing.
+  
+- **Branded Content & Sponsorships:**  
+  Collaborate with children’s book publishers, educational toy companies, and cultural brands to create co-branded content and sponsored challenges aligning with educational goals.
+
+---
+
+### **Why TinyLingo Can Work Profitably**
+
+TinyLingo targets a highly engaging demographic—children eager to learn and parents seeking effective, entertaining educational tools. The combination of an infinite, adaptive video feed, personalized content based on interests, a friendly onboarding experience that sets user expectations, and competitive gamified challenges creates a robust, immersive experience. These features, accompanied by a solid multi-faceted monetization strategy, deliver a uniquely tailored and deeply engaging language learning environment that’s both fun to use and profitable.
+
+---
+
+## **High-Level Implementation Details & Directory Structure**
+
+Leveraging Expo Router, experimental React Server Components, and Supabase as our backend along with custom authentication using Branca, the development is organized as follows:
+
+```
+/tinylingo
+├── /app
+│   ├── /screens
+│   │   ├── FeedScreen.tsx             // Primary feed using VideoFeed component
+│   │   ├── InterestsScreen.tsx        // Screen for updating personal interests
+│   │   ├── ConversationScreen.tsx     // For interactive conversations after videos
+│   │   ├── ChallengeScreen.tsx        // Displays gamified language challenges and metrics
+│   │   ├── OnboardingScreen.tsx       // Guided registration, parental consent, language & interest setup
+│   │   └── ProfileScreen.tsx          // User profile and account settings
+│   │
+│   ├── /components
+│   │   ├── VideoFeed.tsx              // Client wrapper; imports ServerVideoFeed
+│   │   ├── InterestPicker.tsx         // For setting or updating personal interests
+│   │   ├── ChatBox.tsx                // For preset conversation prompts after each video
+│   │   ├── ChallengeCard.tsx          // Displays individual challenge tasks, performance metrics, and rewards
+│   │   └── UserProfile.tsx            // Displays and manages user details, rewards, and progress
+│   │
+│   ├── /hooks
+│   │   ├── useAuth.ts                 // Custom hook managing authentication state & token management
+│   │   └── useUserProfile.ts          // Custom hook to fetch and update user profile data
+│   │
+│   ├── /services
+│   │   ├── auth.ts                    // Functions (login, logout, verifyToken) using Branca
+│   │   └── supabaseClient.ts          // Supabase client configuration & helper functions (reading env variables)
+│   │
+│   └── app/index.tsx                  // Entry point for Expo Router, using Suspense for server-rendered content
+│
+├── /server
+│   ├── /components
+│   │   ├── ServerVideoFeed.server.tsx // Server Component: securely fetches video feed data from Supabase
+│   │   └── ServerConversation.server.tsx  // Server Component: renders preset conversation prompts based on the latest video
+│   │
+│   └── /functions
+│       ├── authFunctions.ts           // Server Functions for login, token generation, and verification using Branca
+│       └── dataFetchFunctions.ts      // Server Functions for fetching video metadata and user progress data
+│
+├── app.json                         // Expo config (ensure experiments: "reactServerFunctions": true, "reactServerComponentRoutes": true)
+├── package.json
+└── tsconfig.json
+```
+
+### **Key Implementation Details**
+
+1. **Server Components & Functions:**
+   - **Server Components:**  
+     Files like `ServerVideoFeed.server.tsx` are used to fetch and render content securely from Supabase, ensuring data-sensitive operations remain on the server.
+   - **Server Functions:**  
+     Files in `/server/functions/` (e.g., `authFunctions.ts`) handle authentication and data fetching tasks using the `"use server"` directive. These functions are invoked from client components as needed.
+  
+2. **Expo Router Integration:**
+   - The app’s routes—such as OnboardingScreen, FeedScreen, and others—are defined under `/app/screens`.
+   - The entry point (`app/index.tsx`) uses React Suspense to show fallback UIs while waiting for data from server components and functions.
+   - Experimental flags in **app.json** enable server components and function usage.
+  
+3. **Custom Authentication Flow:**
+   - The onboarding screen includes a step for authentication. The login process calls a server function (in `authFunctions.ts`) that validates credentials and returns a Branca token.
+   - Tokens are stored using Expo Secure Store and managed through the custom hook `useAuth`.
+  
+4. **Backend Integration & Environment:**
+   - The Supabase client is configured in `/app/services/supabaseClient.ts`, using environment variables (managed via `.env` files).
+   - Real-time features (e.g., leaderboards) integrate through Supabase subscriptions.
+  
+5. **Gamified Social Challenges and Metrics:**
+   - Challenges are designed around language tasks built from video content. They track performance metrics and compare learners’ progress with friends.
+   - Feedback, digital rewards, and leaderboard updates are integrated into the ChallengeScreen and linked to user profiles.
+
+######  Below is an enhanced version of the plan with additional technical specifications. This document now describes not only the features, user stories, and ordering but also key architectural decisions, dependencies, API design, and implementation details.
+
+---
+
+# TinyLingo: Next-Gen Language Learning for Kids  
+**Technical Specifications**
+
+---
+
+## 1. Environment & Dependencies
+
+- **Expo SDK:**  
+  - Use Expo SDK 52 or higher (required for experimental React Server Components support).
+  - Ensure that the project is set up using the Expo Router with React Native’s new architecture enabled.
+
+- **Dependencies:**  
+  - **React & React Native:** Latest versions supported by Expo.
+  - **Expo Router & Experimental RSC:**  
+    - Enable experimental flags in `app.json`:
+      ```json
+      {
+        "expo": {
+          "experiments": {
+            "reactServerFunctions": true,
+            "reactServerComponentRoutes": true
+          }
+        }
+      }
+      ```
+    - Install `react-server-dom-webpack@19.0.0-rc-6230622a1a-20240610` as required.
+  - **Supabase Client:**  
+    - Use `@supabase/supabase-js` for database and storage integration.
+  - **Authentication & Security:**  
+    - Use a custom authentication solution based on the Branca token standard.
+    - Use Expo Secure Store to save tokens on the client.
+  - **State Management & Navigation:**  
+    - Use React Navigation (managed within Expo Router) for navigating between screens.
+  - **Testing:**  
+    - Use Jest with `jest-expo` for unit and integration testing.
+    - Utilize React Testing Library for component tests.
+  - **Language Tools:**  
+    - Consider lightweight libraries for speech evaluation if needed (when/if voice is reintroduced later).
+
+---
+
+## 2. Overall Architecture
+
+### Client (Expo Frontend)
+- **Expo Router & Server Components:**  
+  - Build the app with an Expo Router-based project.
+  - Use server components (files ending with `.server.tsx`) to perform secure data fetching and render parts of the UI on the server.
+  - Example: `ServerVideoFeed.server.tsx` fetches video metadata from Supabase.
+
+- **Navigation & UI:**  
+  - Use stack or tab navigation defined within Expo Router.
+  - Screens reside in `/app/screens` (OnboardingScreen, FeedScreen, etc.).
+  - Use React Suspense in `app/index.tsx` to wrap server component calls (with fallback UIs like `<ActivityIndicator />`).
+
+- **State & Authentication:**  
+  - Custom hook `useAuth.ts` manages login state and token refresh using tokens stored in Expo Secure Store.
+  - The service file `/app/services/auth.ts` contains functions for login/logout/verify, leveraging our custom Branca implementation.
+
+### Server (Supabase & Server Functions)
+- **Supabase:**  
+  - Hosts our primary database, media storage (videos/images), and real-time subscription channels.  
+  - The Supabase client is abstracted in `/app/services/supabaseClient.ts`. Example:
+    ```typescript
+    import { createClient } from '@supabase/supabase-js';
+
+    const SUPABASE_URL = process.env.SUPABASE_URL!;
+    const SUPABASE_KEY = process.env.SUPABASE_KEY!;
+    export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    ```
+- **Server Functions:**  
+  - All critical server-side logic runs in `/server/functions/`.
+  - Examples include:
+    - `authFunctions.ts`: Defines endpoints with `"use server"` that handle credential verification and generate Branca tokens.
+    - `dataFetchFunctions.ts`: Hosts functions to retrieve video metadata, user statistics, and progress.
+  - These functions can be invoked directly from client components or via imported actions.
+  
+- **Server Components:**  
+  - Located in `/server/components/`.
+  - Example: `ServerVideoFeed.server.tsx` uses `import 'server-only';` and utilizes async/await to fetch data from Supabase and deliver a pre-rendered stream of video cards.
+
+---
+
+## 3. Directory Structure & Code Layout
+
+```
+/tinylingo
+├── /app
+│   ├── /screens
+│   │   ├── FeedScreen.tsx             // Primary feed; imports VideoFeed component
+│   │   ├── InterestsScreen.tsx        // Allows updating personal interests
+│   │   ├── ConversationScreen.tsx     // For interactive conversations post-video
+│   │   ├── ChallengeScreen.tsx        // Displays gamified challenges (with metrics & peer comparison)
+│   │   ├── OnboardingScreen.tsx       // Guided onboarding including registration, parental consent, language selection, and interests
+│   │   └── ProfileScreen.tsx          // User profile management & account settings
+│   │
+│   ├── /components
+│   │   ├── VideoFeed.tsx              // Client wrapper for ServerVideoFeed
+│   │   ├── InterestPicker.tsx         // Component for selecting interests
+│   │   ├── ChatBox.tsx                // Conversation interface for preset prompts
+│   │   ├── ChallengeCard.tsx          // Renders individual challenge tasks and performance metrics
+│   │   └── UserProfile.tsx            // Displays avatar, badges, and progress
+│   │
+│   ├── /hooks
+│   │   ├── useAuth.ts                 // Manages authentication state & handles token logic via Expo Secure Store
+│   │   └── useUserProfile.ts          // Fetches and updates user profile data from Supabase
+│   │
+│   ├── /services
+│   │   ├── auth.ts                    // Implements login(), logout(), verifyToken() using custom auth with Branca
+│   │   └── supabaseClient.ts          // Configures the Supabase client with environment variables
+│   │
+│   └── app/index.tsx                  // Entry point for Expo Router; wraps routes with React Suspense
+│
+├── /server
+│   ├── /components
+│   │   ├── ServerVideoFeed.server.tsx // Server Component: fetches and pre-renders video feed from Supabase
+│   │   └── ServerConversation.server.tsx  // Server Component: renders preset conversation prompts based on the latest video
+│   │
+│   └── /functions
+│       ├── authFunctions.ts           // Exposes server functions for auth (login, token generation, token verification)
+│       └── dataFetchFunctions.ts      // Server functions to fetch video metadata, user progress, etc.
+│
+├── app.json                         // Expo config: experimental flags enabled for server functions & RSC
+├── package.json                     // Lists dependencies and scripts for development and production builds
+└── tsconfig.json                    // TypeScript configuration for type safety and project references
+```
+
+---
+
+## 4. Authentication & Token Management
+
+- **Custom Auth Flow:**
+  - On onboarding, the user provides credentials (or a parent-assisted code).  
+  - The login request is sent to `/server/functions/authFunctions.ts` where:
+    - The credentials are validated.
+    - A Branca token is generated and returned.
+  - The client stores the token securely via Expo Secure Store.
+  - The custom hook `useAuth.ts` manages token retrieval, storage, and verification on app load.
+  
+- **Sample Code Snippet (authFunctions.ts):**
+  ```tsx
+  // /server/functions/authFunctions.ts
+  'use server';
+
+  import { Branca } from 'branca';
+  const branca = new Branca('YOUR_SECRET_KEY');
+
+  export async function loginUser(credentials: {username: string; password: string}) {
+    // Validate credentials against your Supabase users table
+    const user = await validateUser(credentials);
+    if (!user) {
+      throw new Error('Invalid credentials');
+    }
+    // Generate a Branca token with user info (ensure it is serializable)
+    const token = branca.encode(JSON.stringify({ userId: user.id, exp: Date.now() + 3600000 }));
+    return { token };
+  }
+  ```
+  
+- **Token Verification:**  
+  - Each subsequent request that requires authentication includes the token as a header.
+  - Server Functions check token validity using the Branca library before processing sensitive operations.
+  
+---
+
+## 5. Data & Real-Time Integration with Supabase
+
+- **Supabase Client Configuration:**  
+  - Defined in `/app/services/supabaseClient.ts` using environment variables.
+  - Secure API calls to fetch video metadata, user statistics, and subscribe to real-time changes (leaderboards, challenge updates).
+  
+- **Data Model (Brief Overview):**  
+  - **Users:** Stores user info, interests, language preferences, and progress metrics.
+  - **Videos:** Holds metadata for each AI-generated video (title, description, level, media URL, etc.).
+  - **Challenges:** Records attempts, scores, and rankings for gamified language challenges.
+  
+- **Real-Time Features:**  
+  - Utilize Supabase subscriptions in client hooks (e.g., in `useUserProfile.ts`) to dynamically update metrics and leaderboard information.
+
+---
+
+## 6. Expo Router & Server Components Integration
+
+- **React Server Components (RSC):**
+  - Server components such as `ServerVideoFeed.server.tsx` fetch data directly from Supabase.  
+  - They can use async/await, React Suspense, and only return serializable data.
+  - Example usage in a client component (VideoFeed.tsx):
+    ```tsx
+    // /app/components/VideoFeed.tsx (Client Component)
+    import React, { Suspense } from 'react';
+    import { ActivityIndicator } from 'react-native';
+    import ServerVideoFeed from '../../server/components/ServerVideoFeed.server';
+
+    export default function VideoFeed() {
+      return (
+        <Suspense fallback={<ActivityIndicator />}>
+          <ServerVideoFeed />
+        </Suspense>
+      );
+    }
+    ```
+  
+- **Expo Router:**  
+  - Routes are defined in `/app/screens`.  
+  - The application entry point (`app/index.tsx`) uses React Suspense and lazy loading for an optimal experience.
+  - Routing can support dynamic parameters and static/dynamic rendering modes based on content needs.
+
+---
+
+## 7. Testing, Error Handling, and Deployment
+
+- **Testing:**  
+  - Employ unit tests (Jest) for functions in `/server/functions/` and client hooks.
+  - Integration tests using React Testing Library ensure components render correctly alongside Suspense.
+  - Monitor error cases (e.g., token expiration, network issues) using test mocks.
+  
+- **Error Handling:**  
+  - Provide fallback UI components for server function errors (e.g., error boundaries in Suspense).
+  - Log errors to a remote service if needed (e.g., Sentry) to catch production issues.
+  
+- **Deployment:**  
+  - Use Expo’s build tools (EAS Build) to deploy the mobile app.
+  - Environment variables (Supabase keys, secret tokens) are managed via Expo Environment Variables.
+  - Server Functions are deployed as part of the Expo Router’s experimental server bundle; monitor via logs and update frequently in development.
+
+---
+
+This enhanced technical specification now details the environment, architecture, directory layout, server/client interactions, authentication mechanisms, and testing/deployment strategies. It should serve as a comprehensive technical roadmap for developing TinyLingo with a strong foundation, secure data handling, and an engaging user experience for young learners. Let me know if any areas need further elaboration or additional details!
