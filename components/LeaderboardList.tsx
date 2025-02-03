@@ -11,6 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons"
 import type { LeaderboardEntry } from "@/server/data/leaderboard"
 import { Link } from "expo-router"
+import { formatNumber } from "@/utils/format"
 
 interface LeaderboardListProps {
 	entries: LeaderboardEntry[]
@@ -36,14 +37,19 @@ export default function LeaderboardList({ entries }: LeaderboardListProps) {
 								<View style={styles.statsRow}>
 									<View style={styles.stat}>
 										<Ionicons name="star" size={14} color="#FFD700" />
-										<Text style={styles.statText}>{entry.points}</Text>
+										<Text style={styles.statText}>
+											{formatNumber(entry.stars)}
+										</Text>
 									</View>
 									<View style={styles.stat}>
 										<Ionicons name="flame" size={14} color="#FF5722" />
 										<Text style={styles.statText}>{entry.streak}d</Text>
 									</View>
-									<View style={styles.levelBadge}>
-										<Text style={styles.levelText}>Lvl {entry.level}</Text>
+									<View style={styles.stat}>
+										<Text style={styles.statText}>
+											{entry.currentLanguage.emoji} Lvl{" "}
+											{entry.currentLanguage.level}
+										</Text>
 									</View>
 								</View>
 							</View>
@@ -111,16 +117,5 @@ const styles = StyleSheet.create({
 		marginLeft: 4,
 		fontSize: 14,
 		color: "#666"
-	},
-	levelBadge: {
-		backgroundColor: "#6B4EFF",
-		paddingHorizontal: 8,
-		paddingVertical: 2,
-		borderRadius: 12
-	},
-	levelText: {
-		color: "white",
-		fontSize: 12,
-		fontWeight: "600"
 	}
 })

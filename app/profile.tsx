@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, StyleSheet } from "react-native"
+import { ScrollView, View, Text, StyleSheet, SafeAreaView } from "react-native"
 import BottomTabBar from "@/components/BottomTabBar"
 import ProfileHeader from "@/components/ProfileHeader"
 import ProfileStats from "@/components/ProfileStats"
@@ -16,7 +16,7 @@ export default async function ProfilePage() {
 	)
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<View style={styles.header}>
 				<Text style={styles.title}>Your Profile</Text>
 				<Text style={styles.subtitle}>
@@ -46,13 +46,17 @@ export default async function ProfilePage() {
 					<LanguageSelector
 						currentLanguage={profile.currentLanguage}
 						languageLevels={profile.languageLevels}
-						onLanguageChange={updateUserLanguage}
+						onLanguageChange={async (code) => {
+							await updateUserLanguage(code)
+						}}
 					/>
 					<ProfileStats stats={profile.stats} />
 				</Suspense>
 			</ScrollView>
-			<BottomTabBar />
-		</View>
+			<View style={styles.bottomBarContainer}>
+				<BottomTabBar />
+			</View>
+		</SafeAreaView>
 	)
 }
 
@@ -82,6 +86,14 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	contentContainer: {
-		padding: 16
+		padding: 16,
+		paddingBottom: 80 // Add extra padding at bottom to prevent content from being cut off
+	},
+	bottomBarContainer: {
+		position: "absolute",
+		bottom: 0,
+		left: 0,
+		right: 0,
+		backgroundColor: "white"
 	}
 })

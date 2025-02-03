@@ -8,13 +8,11 @@ import StatsGrid from "./StatsGrid"
 import StatsDisplay from "./StatsDisplay"
 import { formatNumber } from "@/utils/format"
 
-interface LeaderboardEntryDetailsProps {
+interface DetailsProps {
 	details: LeaderboardEntryDetails
 }
 
-export default function LeaderboardEntryDetails({
-	details
-}: LeaderboardEntryDetailsProps) {
+export default function Details({ details }: DetailsProps) {
 	return (
 		<ScrollView
 			style={styles.container}

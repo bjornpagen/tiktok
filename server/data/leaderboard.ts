@@ -11,6 +11,7 @@ export interface LeaderboardEntry {
 	streak: number
 	currentLanguage: {
 		code: string
+		name: string
 		level: number
 		emoji: string
 	}
@@ -24,7 +25,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2850,
 		rank: 1,
 		streak: 12,
-		currentLanguage: { code: "es", level: 15, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 15, emoji: "🇪🇸" }
 	},
 	{
 		id: "2",
@@ -33,7 +34,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2720,
 		rank: 2,
 		streak: 8,
-		currentLanguage: { code: "es", level: 14, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 14, emoji: "🇪🇸" }
 	},
 	{
 		id: "3",
@@ -42,7 +43,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2680,
 		rank: 3,
 		streak: 15,
-		currentLanguage: { code: "es", level: 13, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 13, emoji: "🇪🇸" }
 	},
 	{
 		id: "4",
@@ -51,7 +52,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2450,
 		rank: 4,
 		streak: 6,
-		currentLanguage: { code: "es", level: 12, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 12, emoji: "🇪🇸" }
 	},
 	{
 		id: "5",
@@ -60,7 +61,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2380,
 		rank: 5,
 		streak: 9,
-		currentLanguage: { code: "es", level: 12, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 12, emoji: "🇪🇸" }
 	},
 	{
 		id: "6",
@@ -69,7 +70,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2290,
 		rank: 6,
 		streak: 4,
-		currentLanguage: { code: "es", level: 11, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 11, emoji: "🇪🇸" }
 	},
 	{
 		id: "7",
@@ -78,7 +79,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2180,
 		rank: 7,
 		streak: 7,
-		currentLanguage: { code: "es", level: 11, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 11, emoji: "🇪🇸" }
 	},
 	{
 		id: "8",
@@ -87,7 +88,7 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		stars: 2050,
 		rank: 8,
 		streak: 5,
-		currentLanguage: { code: "es", level: 10, emoji: "🇪🇸" }
+		currentLanguage: { code: "es", name: "Spanish", level: 10, emoji: "🇪🇸" }
 	}
 ]
 
