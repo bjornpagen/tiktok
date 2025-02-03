@@ -11,8 +11,8 @@ interface Peer {
 
 interface Word {
 	word: string
-	learned: boolean
-	lastPracticed?: string
+	dateDiscovered: string
+	dateLastSeen?: string
 }
 
 interface TimeBasedExpiry {
@@ -37,7 +37,7 @@ interface ChallengeDetailsProps {
 			current: number
 			total: number
 		}
-		words: Word[]
+		wordsLearned: Word[]
 		peers: Peer[]
 	}
 }
@@ -113,22 +113,26 @@ export default function ChallengeDetails({ details }: ChallengeDetailsProps) {
 			</View>
 
 			<View>
-				<Text style={styles.sectionTitle}>Words to Learn</Text>
+				<Text style={styles.sectionTitle}>Words Learned</Text>
 				<View style={styles.wordsContainer}>
-					{details.words.map((word) => (
-						<View key={word.word} style={styles.wordItem}>
-							<Ionicons
-								name={word.learned ? "checkmark-circle" : "ellipse-outline"}
-								size={20}
-								color={word.learned ? "#4CAF50" : "#666"}
-							/>
-							<Text
-								style={[styles.wordText, word.learned && styles.learnedWord]}
-							>
-								{word.word}
-							</Text>
-						</View>
-					))}
+					{details.wordsLearned.length === 0 ? (
+						<Text style={styles.emptyText}>
+							No words learned yet. Watch videos to discover new words!
+						</Text>
+					) : (
+						details.wordsLearned.map((word) => (
+							<View key={word.word} style={styles.wordItem}>
+								<Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
+								<View style={styles.wordDetails}>
+									<Text style={styles.wordText}>{word.word}</Text>
+									<Text style={styles.wordDate}>
+										Discovered{" "}
+										{new Date(word.dateDiscovered).toLocaleDateString()}
+									</Text>
+								</View>
+							</View>
+						))
+					)}
 				</View>
 			</View>
 
@@ -213,14 +217,26 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginBottom: 12
 	},
+	wordDetails: {
+		flex: 1,
+		marginLeft: 12
+	},
 	wordText: {
 		fontSize: 16,
 		color: "#333",
-		marginLeft: 12
-	},
-	learnedWord: {
-		color: "#4CAF50",
 		fontWeight: "500"
+	},
+	wordDate: {
+		fontSize: 12,
+		color: "#666",
+		marginTop: 2
+	},
+	emptyText: {
+		fontSize: 14,
+		color: "#666",
+		fontStyle: "italic",
+		textAlign: "center",
+		padding: 16
 	},
 	peerContainer: {
 		backgroundColor: "white",

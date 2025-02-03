@@ -26,8 +26,8 @@ export interface ParticipantBasedExpiry {
 
 interface Word {
 	word: string
-	learned: boolean
-	lastPracticed?: string
+	dateDiscovered: string // When the word appeared in a video
+	dateLastSeen?: string // Last time user encountered this word
 }
 
 interface Peer {
@@ -38,7 +38,7 @@ interface Peer {
 }
 
 interface ChallengeDetails extends Challenge {
-	words: Word[]
+	wordsLearned: Word[] // Changed from words to wordsLearned
 	peers: Peer[]
 }
 
@@ -165,12 +165,22 @@ export async function fetchChallengeDetails(
 			deadline: new Date(Date.now() + 172800000).toISOString() // 48 hours from now
 		},
 		difficulty: "Beginner",
-		words: [
-			{ word: "Hello", learned: true, lastPracticed: "2024-03-10" },
-			{ word: "Goodbye", learned: true, lastPracticed: "2024-03-09" },
-			{ word: "Good morning", learned: true, lastPracticed: "2024-03-08" },
-			{ word: "Good evening", learned: false },
-			{ word: "See you later", learned: false }
+		wordsLearned: [
+			{
+				word: "Hello",
+				dateDiscovered: "2024-03-10",
+				dateLastSeen: "2024-03-12"
+			},
+			{
+				word: "Goodbye",
+				dateDiscovered: "2024-03-09",
+				dateLastSeen: "2024-03-11"
+			},
+			{
+				word: "Good morning",
+				dateDiscovered: "2024-03-08",
+				dateLastSeen: "2024-03-10"
+			}
 		],
 		peers: [
 			{ id: "1", name: "Emma", progress: 80 },
