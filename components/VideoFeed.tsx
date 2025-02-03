@@ -62,9 +62,16 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 			keyExtractor={(item) => item.id}
 			pagingEnabled
 			snapToInterval={screenHeight}
-			decelerationRate="fast"
+			snapToAlignment="start"
+			decelerationRate={0.1}
 			showsVerticalScrollIndicator={false}
 			scrollEventThrottle={16}
+			removeClippedSubviews={true}
+			maxToRenderPerBatch={2}
+			windowSize={3}
+			onMomentumScrollBegin={() => {}}
+			onMomentumScrollEnd={() => {}}
+			bounces={false}
 		/>
 	)
 }
