@@ -1,198 +1,138 @@
 "use client"
 
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
-import { Link } from "expo-router"
-import type { LanguageLevel } from "@/server/data/types"
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import type { LanguageLevel } from "@/types/profile"
 import { useState } from "react"
 
 interface LanguageSelectorProps {
 	currentLanguage: string
 	languageLevels: LanguageLevel[]
-	onLanguageChange: (language: string) => Promise<{ success: boolean }>
+	onLanguageChange: (code: string) => Promise<void>
 }
 
 export default function LanguageSelector({
-	currentLanguage,
+	currentLanguage: initialLanguage,
 	languageLevels,
 	onLanguageChange
 }: LanguageSelectorProps) {
-	const [showLanguageModal, setShowLanguageModal] = useState(false)
-	const [selectedLanguage, setSelectedLanguage] = useState(currentLanguage)
+	// Local state to handle immediate UI updates
+	const [currentLanguage, setCurrentLanguage] = useState(initialLanguage)
 	const [isChanging, setIsChanging] = useState(false)
 
-	const currentLangDetails = languageLevels.find(
-		(lang) => lang.code === selectedLanguage
-	)
+	const handleLanguageChange = async (code: string) => {
+		if (isChanging || code === currentLanguage) {
+			return
+		}
 
-	const handleLanguageSelect = async (code: string) => {
-		setIsChanging(true)
 		try {
+			setIsChanging(true)
 			await onLanguageChange(code)
-			setSelectedLanguage(code)
+			setCurrentLanguage(code)
+		} catch (error) {
+			console.error("Failed to change language:", error)
+			// You might want to show an error message to the user here
 		} finally {
 			setIsChanging(false)
-			setShowLanguageModal(false)
 		}
 	}
 
-	const renderLanguageOption = (language: LanguageLevel) => {
-		const isSelected = language.code === selectedLanguage
-		return (
-			<Link
-				key={language.code}
-				href={{
-					pathname: "/profile",
-					params: { lang: language.code }
-				}}
-				asChild
-			>
-				<TouchableOpacity
-					style={isSelected ? styles.selectedOption : styles.option}
-					disabled={isChanging}
-					onPress={() => handleLanguageSelect(language.code)}
-				>
-					<Text
-						style={isSelected ? styles.selectedOptionText : styles.optionText}
-					>
-						{language.emoji} {language.name}
-					</Text>
-				</TouchableOpacity>
-			</Link>
-		)
-	}
-
 	return (
-		<View style={styles.section}>
-			<Text style={styles.sectionTitle}>Learning Language</Text>
-			<TouchableOpacity
-				style={styles.languageButton}
-				onPress={() => setShowLanguageModal(true)}
-			>
-				<Text style={styles.languageButtonText}>
-					{isChanging
-						? "Changing..."
-						: `${currentLangDetails?.emoji} ${currentLangDetails?.name}`}
-				</Text>
-				<Ionicons name="chevron-down" size={16} color="#666" />
-			</TouchableOpacity>
-
-			<Modal
-				visible={showLanguageModal}
-				transparent
-				animationType="fade"
-				onRequestClose={() => setShowLanguageModal(false)}
-			>
-				<TouchableOpacity
-					style={styles.modalContainer}
-					activeOpacity={1}
-					onPress={() => setShowLanguageModal(false)}
-				>
-					<View>
-						<TouchableOpacity
-							style={styles.modalContent}
-							activeOpacity={1}
-							onPress={(e) => e.stopPropagation()}
+		<View style={styles.container}>
+			<Text style={styles.label}>Learning Language</Text>
+			<View style={styles.languageGrid}>
+				{languageLevels.map((lang) => (
+					<TouchableOpacity
+						key={lang.code}
+						style={[
+							styles.languageButton,
+							currentLanguage === lang.code && styles.selectedLanguage,
+							isChanging && styles.disabledButton
+						]}
+						onPress={() => handleLanguageChange(lang.code)}
+						disabled={isChanging}
+					>
+						<Text style={styles.languageEmoji}>{lang.emoji}</Text>
+						<Text
+							style={[
+								styles.languageName,
+								currentLanguage === lang.code && styles.selectedLanguageText
+							]}
 						>
-							<Text style={styles.modalTitle}>Select Language</Text>
-							<View style={styles.optionsList}>
-								{languageLevels.map(renderLanguageOption)}
-							</View>
-							<TouchableOpacity
-								style={styles.closeButton}
-								onPress={() => setShowLanguageModal(false)}
-							>
-								<Text style={styles.closeButtonText}>Cancel</Text>
-							</TouchableOpacity>
-						</TouchableOpacity>
-					</View>
-				</TouchableOpacity>
-			</Modal>
+							{lang.name}
+						</Text>
+						<View style={styles.levelBadge}>
+							<Text style={styles.levelText}>Lvl {lang.level}</Text>
+						</View>
+					</TouchableOpacity>
+				))}
+			</View>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-	section: {
+	container: {
 		backgroundColor: "white",
 		borderRadius: 12,
 		padding: 16,
-		marginBottom: 16,
-		elevation: 2,
+		marginVertical: 8,
 		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.1,
-		shadowRadius: 2
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.05,
+		shadowRadius: 4,
+		elevation: 3
 	},
-	sectionTitle: {
-		fontSize: 18,
+	label: {
+		fontSize: 16,
 		fontWeight: "600",
 		color: "#333",
 		marginBottom: 12
 	},
+	languageGrid: {
+		flexDirection: "row",
+		flexWrap: "wrap",
+		gap: 8
+	},
 	languageButton: {
-		backgroundColor: "#F0F0F0",
+		flexDirection: "row",
+		alignItems: "center",
+		backgroundColor: "#F5F7FA",
 		paddingHorizontal: 12,
 		paddingVertical: 8,
 		borderRadius: 8,
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
 		borderWidth: 1,
-		borderColor: "#E0E0E0"
-	},
-	languageButtonText: {
-		color: "#333",
-		fontSize: 16,
-		fontWeight: "500"
-	},
-	modalContainer: {
-		flex: 1,
-		justifyContent: "flex-end",
-		backgroundColor: "rgba(0,0,0,0.5)"
-	},
-	modalContent: {
-		backgroundColor: "white",
-		borderTopLeftRadius: 20,
-		borderTopRightRadius: 20,
-		padding: 20
-	},
-	modalTitle: {
-		fontSize: 20,
-		fontWeight: "600",
-		marginBottom: 16,
-		textAlign: "center"
-	},
-	optionsList: {
+		borderColor: "#E4E9F0",
+		minWidth: "48%",
 		gap: 8
 	},
-	option: {
-		paddingVertical: 12,
-		paddingHorizontal: 16,
-		borderRadius: 8,
-		backgroundColor: "#F0F0F0"
+	selectedLanguage: {
+		backgroundColor: "#EBF5FF",
+		borderColor: "#2196F3"
 	},
-	selectedOption: {
-		paddingVertical: 12,
-		paddingHorizontal: 16,
-		borderRadius: 8,
-		backgroundColor: "#007AFF"
+	languageEmoji: {
+		fontSize: 20
 	},
-	optionText: {
-		fontSize: 16,
-		color: "#333"
+	languageName: {
+		fontSize: 14,
+		color: "#4A5568",
+		flex: 1
 	},
-	selectedOptionText: {
-		fontSize: 16,
-		color: "white"
+	selectedLanguageText: {
+		color: "#2196F3",
+		fontWeight: "500"
 	},
-	closeButton: {
-		marginTop: 16,
-		paddingVertical: 12,
-		alignItems: "center"
+	levelBadge: {
+		backgroundColor: "#E2E8F0",
+		paddingHorizontal: 6,
+		paddingVertical: 2,
+		borderRadius: 4
 	},
-	closeButtonText: {
-		color: "#666",
-		fontSize: 16
+	levelText: {
+		fontSize: 12,
+		color: "#4A5568",
+		fontWeight: "500"
+	},
+	disabledButton: {
+		opacity: 0.6
 	}
 })
