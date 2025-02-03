@@ -30,7 +30,6 @@
 				}
 			},
 			"nursery": {
-				"noImgElement": "error",
 				"noNestedTernary": "error"
 			},
 			"style": {
