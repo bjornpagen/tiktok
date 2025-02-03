@@ -51,7 +51,7 @@ export default function LeaderboardEntryDetails({
 				{details.recentAchievements.map((achievement) => (
 					<View key={achievement.id} style={styles.achievementItem}>
 						<Ionicons
-							name={achievement.icon as any}
+							name={achievement.icon as keyof typeof Ionicons.glyphMap}
 							size={24}
 							color="#6B4EFF"
 						/>

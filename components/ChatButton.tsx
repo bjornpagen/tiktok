@@ -7,7 +7,11 @@ interface ChatButtonProps {
 
 export function ChatButton({ onPress }: ChatButtonProps) {
 	return (
-		<TouchableOpacity onPress={onPress} style={styles.button}>
+		<TouchableOpacity
+			onPress={onPress}
+			style={styles.button}
+			activeOpacity={0.7}
+		>
 			<View style={styles.iconContainer}>
 				<Ionicons name="happy-outline" size={32} color="white" />
 				<Text style={styles.text}>Chat!</Text>

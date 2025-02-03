@@ -7,7 +7,9 @@ import {
 	Image,
 	StyleSheet,
 	Dimensions,
-	FlatList
+	FlatList,
+	type NativeSyntheticEvent,
+	type NativeScrollEvent
 } from "react-native"
 import { ChatButton } from "./ChatButton"
 import { ChatModal } from "./ChatModal"
@@ -61,7 +63,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 	const [isChatVisible, setIsChatVisible] = useState(false)
 	const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
 
-	const handleScroll = (event: any) => {
+	const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 		const offsetY = event.nativeEvent.contentOffset.y
 		const index = Math.floor(offsetY / screenHeight)
 		setCurrentVideoIndex(index)

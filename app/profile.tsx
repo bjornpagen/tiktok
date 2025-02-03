@@ -2,7 +2,7 @@ import { ScrollView, View, Text, StyleSheet } from "react-native"
 import BottomTabBar from "@/components/BottomTabBar"
 import ProfileHeader from "@/components/ProfileHeader"
 import ProfileStats from "@/components/ProfileStats"
-import { fetchUserProfile } from "@/server/data/profile"
+import { fetchUserProfile, updateUserLanguage } from "@/server/data/profile"
 import { Suspense } from "react"
 import LoadingProfile from "@/components/LoadingProfile"
 
@@ -29,7 +29,12 @@ export default async function ProfilePage() {
 							starsToNextLevel: profile.starsToNextLevel
 						}}
 					/>
-					<ProfileStats stats={profile.stats} />
+					<ProfileStats
+						stats={profile.stats}
+						currentLanguage={profile.currentLanguage}
+						availableLanguages={profile.availableLanguages}
+						onLanguageChange={updateUserLanguage}
+					/>
 				</Suspense>
 			</ScrollView>
 			<BottomTabBar />

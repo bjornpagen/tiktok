@@ -18,6 +18,11 @@ export interface UserProfile {
 		icon: string
 		dateEarned: string
 	}[]
+	currentLanguage: string
+	availableLanguages: {
+		code: string
+		name: string
+	}[]
 }
 
 const dummyProfile: UserProfile = {
@@ -57,6 +62,14 @@ const dummyProfile: UserProfile = {
 			icon: "flame",
 			dateEarned: "2024-03-10"
 		}
+	],
+	currentLanguage: "es",
+	availableLanguages: [
+		{ code: "es", name: "Spanish" },
+		{ code: "fr", name: "French" },
+		{ code: "de", name: "German" },
+		{ code: "it", name: "Italian" },
+		{ code: "pt", name: "Portuguese" }
 	]
 }
 
@@ -64,4 +77,12 @@ export async function fetchUserProfile() {
 	// Simulate network delay
 	await new Promise((resolve) => setTimeout(resolve, 1000))
 	return dummyProfile
+}
+
+export async function updateUserLanguage(languageCode: string) {
+	"use server"
+	// Simulate network delay
+	await new Promise((resolve) => setTimeout(resolve, 500))
+	// In a real app, this would update the database
+	return { success: true }
 }

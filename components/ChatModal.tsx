@@ -75,26 +75,12 @@ export function ChatModal({ visible, onClose, videoTitle }: ChatModalProps) {
 	return (
 		<Modal
 			visible={visible}
-			animationType="slide"
+			animationType="fade"
 			transparent={true}
 			onRequestClose={onClose}
 		>
-			<View
-				style={[
-					styles.modalContainer,
-					{
-						backgroundColor: "rgba(0, 0, 0, 0.3)"
-					}
-				]}
-			>
-				<View
-					style={[
-						styles.modalContent,
-						{
-							transform: [{ scale: visible ? 1 : 0.9 }]
-						}
-					]}
-				>
+			<View style={styles.modalContainer}>
+				<View style={styles.modalContent}>
 					<View style={styles.header}>
 						<Text style={styles.title}>Practice Time! 🌟</Text>
 						<TouchableOpacity onPress={onClose} style={styles.closeButton}>
@@ -140,7 +126,7 @@ export function ChatModal({ visible, onClose, videoTitle }: ChatModalProps) {
 const styles = StyleSheet.create({
 	modalContainer: {
 		flex: 1,
-		backgroundColor: "rgba(0, 0, 0, 0.3)"
+		backgroundColor: "rgba(0, 0, 0, 0.5)"
 	},
 	modalContent: {
 		flex: 1,
