@@ -1,6 +1,6 @@
 "use server"
-
 import "server-only"
+import type { UserStats } from "./types" // We'll create this shared type
 
 export interface LeaderboardEntry {
 	id: string
@@ -94,22 +94,13 @@ export async function fetchLeaderboard(): Promise<LeaderboardEntry[]> {
 }
 
 export interface LeaderboardEntryDetails extends LeaderboardEntry {
-	stats: {
-		wordsLearned: number
-		challengesCompleted: number
-		videosWatched: number
-		perfectDays: number
-	}
+	stats: UserStats
 	recentAchievements: {
 		id: string
 		name: string
 		description: string
 		icon: string
 		dateEarned: string
-	}[]
-	weeklyProgress: {
-		day: string
-		points: number
 	}[]
 }
 
@@ -125,14 +116,14 @@ export async function fetchLeaderboardEntryDetails(
 		throw new Error("Entry not found")
 	}
 
-	// Return extended details
+	// Return extended details without weeklyProgress
 	return {
 		...baseEntry,
 		stats: {
 			wordsLearned: 450,
 			challengesCompleted: 32,
-			videosWatched: 128,
-			perfectDays: 15
+			minutesWatched: 840,
+			daysStreak: baseEntry.streak
 		},
 		recentAchievements: [
 			{
@@ -151,20 +142,11 @@ export async function fetchLeaderboardEntryDetails(
 			},
 			{
 				id: "3",
-				name: "Video Enthusiast",
-				description: "Watched 100 learning videos",
-				icon: "play",
+				name: "Learning Explorer",
+				description: "Watched 14 hours of content",
+				icon: "time",
 				dateEarned: "2024-03-05"
 			}
-		],
-		weeklyProgress: [
-			{ day: "Mon", points: 320 },
-			{ day: "Tue", points: 280 },
-			{ day: "Wed", points: 350 },
-			{ day: "Thu", points: 420 },
-			{ day: "Fri", points: 380 },
-			{ day: "Sat", points: 290 },
-			{ day: "Sun", points: 310 }
 		]
 	}
 }

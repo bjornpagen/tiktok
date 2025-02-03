@@ -1,4 +1,5 @@
 import "server-only"
+import type { UserStats } from "./types"
 
 export interface UserProfile {
 	id: string
@@ -8,12 +9,7 @@ export interface UserProfile {
 	level: number
 	stars: number
 	starsToNextLevel: number
-	stats: {
-		challengesCompleted: number
-		wordsLearned: number
-		daysStreak: number
-		minutesWatched: number
-	}
+	stats: UserStats
 	interests: string[]
 	achievements: {
 		id: string

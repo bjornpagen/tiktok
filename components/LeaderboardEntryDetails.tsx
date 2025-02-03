@@ -4,6 +4,7 @@ import { View, Text, Image, StyleSheet, ScrollView } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Link } from "expo-router"
 import type { LeaderboardEntryDetails } from "@/server/data/leaderboard"
+import StatsGrid from "./StatsGrid"
 
 interface LeaderboardEntryDetailsProps {
 	details: LeaderboardEntryDetails
@@ -42,30 +43,7 @@ export default function LeaderboardEntryDetails({
 
 			<View style={styles.section}>
 				<Text style={styles.sectionTitle}>Statistics</Text>
-				<View style={styles.statsGrid}>
-					<View style={styles.statItem}>
-						<Ionicons name="book" size={24} color="#6B4EFF" />
-						<Text style={styles.statValue}>{details.stats.wordsLearned}</Text>
-						<Text style={styles.statLabel}>Words Learned</Text>
-					</View>
-					<View style={styles.statItem}>
-						<Ionicons name="trophy" size={24} color="#4CAF50" />
-						<Text style={styles.statValue}>
-							{details.stats.challengesCompleted}
-						</Text>
-						<Text style={styles.statLabel}>Challenges</Text>
-					</View>
-					<View style={styles.statItem}>
-						<Ionicons name="play-circle" size={24} color="#2196F3" />
-						<Text style={styles.statValue}>{details.stats.videosWatched}</Text>
-						<Text style={styles.statLabel}>Videos Watched</Text>
-					</View>
-					<View style={styles.statItem}>
-						<Ionicons name="checkmark-circle" size={24} color="#FF5722" />
-						<Text style={styles.statValue}>{details.stats.perfectDays}</Text>
-						<Text style={styles.statLabel}>Perfect Days</Text>
-					</View>
-				</View>
+				<StatsGrid stats={details.stats} />
 			</View>
 
 			<View style={styles.section}>
@@ -88,25 +66,6 @@ export default function LeaderboardEntryDetails({
 						</Text>
 					</View>
 				))}
-			</View>
-
-			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Weekly Progress</Text>
-				<View style={styles.progressChart}>
-					{details.weeklyProgress.map((day, index) => (
-						<View key={day.day} style={styles.progressBar}>
-							<View
-								style={[
-									styles.progressFill,
-									{
-										height: `${(day.points / 500) * 100}%`
-									}
-								]}
-							/>
-							<Text style={styles.progressLabel}>{day.day}</Text>
-						</View>
-					))}
-				</View>
 			</View>
 		</ScrollView>
 	)
@@ -182,35 +141,6 @@ const styles = StyleSheet.create({
 		color: "#333",
 		marginBottom: 16
 	},
-	statsGrid: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-between"
-	},
-	statItem: {
-		width: "48%",
-		alignItems: "center",
-		backgroundColor: "white",
-		padding: 16,
-		borderRadius: 8,
-		marginBottom: 12,
-		elevation: 2,
-		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.1,
-		shadowRadius: 2
-	},
-	statValue: {
-		fontSize: 20,
-		fontWeight: "700",
-		color: "#333",
-		marginTop: 8
-	},
-	statLabel: {
-		fontSize: 14,
-		color: "#666",
-		marginTop: 4
-	},
 	achievementItem: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -240,35 +170,5 @@ const styles = StyleSheet.create({
 	achievementDate: {
 		fontSize: 12,
 		color: "#999"
-	},
-	progressChart: {
-		flexDirection: "row",
-		height: 200,
-		justifyContent: "space-between",
-		alignItems: "flex-end",
-		backgroundColor: "white",
-		padding: 16,
-		borderRadius: 8,
-		elevation: 2,
-		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.1,
-		shadowRadius: 2
-	},
-	progressBar: {
-		width: 30,
-		height: "100%",
-		justifyContent: "flex-end",
-		alignItems: "center"
-	},
-	progressFill: {
-		width: "100%",
-		backgroundColor: "#6B4EFF",
-		borderRadius: 4
-	},
-	progressLabel: {
-		marginTop: 8,
-		fontSize: 12,
-		color: "#666"
 	}
 })

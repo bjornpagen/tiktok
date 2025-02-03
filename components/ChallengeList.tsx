@@ -46,20 +46,29 @@ function ExpiryInfo({
 	expiry
 }: { expiry: TimeBasedExpiry | ParticipantBasedExpiry }) {
 	if (expiry.type === "time") {
+		const now = Date.now()
+		const timeLeft = new Date(expiry.deadline).getTime() - now
+		const isUrgent = timeLeft <= 60 * 60 * 1000 // Less than 1 hour
+		const color = isUrgent ? "#E53E3E" : "#666" // Muted red
+
 		return (
 			<View style={styles.stat}>
-				<Ionicons name="time" size={14} color="#666" />
-				<Text style={styles.statText}>{formatTimeLeft(expiry.deadline)}</Text>
+				<Ionicons name="time" size={14} color={color} />
+				<Text style={[styles.statText, { color }]}>
+					{formatTimeLeft(expiry.deadline)}
+				</Text>
 			</View>
 		)
 	}
 
+	const spotsLeft = expiry.maxClaims - expiry.currentClaims
+	const isUrgent = spotsLeft <= 3
+	const color = isUrgent ? "#E53E3E" : "#666" // Same muted red
+
 	return (
 		<View style={styles.stat}>
-			<Ionicons name="people" size={14} color="#666" />
-			<Text style={styles.statText}>
-				{expiry.maxClaims - expiry.currentClaims} spots left
-			</Text>
+			<Ionicons name="people" size={14} color={color} />
+			<Text style={[styles.statText, { color }]}>{spotsLeft} spots left</Text>
 		</View>
 	)
 }
