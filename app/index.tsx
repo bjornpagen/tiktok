@@ -1,9 +1,16 @@
-import { Text, View } from "react-native"
+import { Suspense } from "react"
+import { View } from "react-native"
+import { fetchInitialVideos } from "@/server/data/videos"
+import VideoFeed from "@/components/VideoFeed"
 
-export default function Page() {
+export default async function FeedPage() {
+	const initialVideos = await fetchInitialVideos()
+
 	return (
-		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Text>Hello world</Text>
-		</View>
+		<Suspense fallback={<View />}>
+			<View style={{ flex: 1 }}>
+				<VideoFeed initialVideos={initialVideos} />
+			</View>
+		</Suspense>
 	)
 }
