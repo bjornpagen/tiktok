@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity } from "react-native"
 import { Link } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 
@@ -38,20 +38,20 @@ export default function BottomTabBar() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
-		flexDirection: "row",
+		flexDirection: "row" as const,
 		height: 60,
 		backgroundColor: "#000",
-		position: "absolute",
+		position: "absolute" as const,
 		bottom: 0,
 		left: 0,
 		right: 0
 	},
 	tab: {
 		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
+		justifyContent: "center" as const,
+		alignItems: "center" as const,
 		paddingVertical: 8
 	},
 	tabText: {
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
 		color: "white",
 		marginTop: 3
 	}
-})
+}
