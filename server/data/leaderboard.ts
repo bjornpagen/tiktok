@@ -6,10 +6,14 @@ export interface LeaderboardEntry {
 	id: string
 	name: string
 	avatarUrl: string
-	level: number
-	points: number
+	stars: number
 	rank: number
 	streak: number
+	currentLanguage: {
+		code: string
+		level: number
+		emoji: string
+	}
 }
 
 const dummyLeaderboard: LeaderboardEntry[] = [
@@ -17,73 +21,73 @@ const dummyLeaderboard: LeaderboardEntry[] = [
 		id: "1",
 		name: "Emma Thompson",
 		avatarUrl: "https://picsum.photos/seed/emma/200",
-		level: 15,
-		points: 2850,
+		stars: 2850,
 		rank: 1,
-		streak: 12
+		streak: 12,
+		currentLanguage: { code: "es", level: 15, emoji: "🇪🇸" }
 	},
 	{
 		id: "2",
 		name: "Liam Chen",
 		avatarUrl: "https://picsum.photos/seed/liam/200",
-		level: 14,
-		points: 2720,
+		stars: 2720,
 		rank: 2,
-		streak: 8
+		streak: 8,
+		currentLanguage: { code: "es", level: 14, emoji: "🇪🇸" }
 	},
 	{
 		id: "3",
 		name: "Sofia Rodriguez",
 		avatarUrl: "https://picsum.photos/seed/sofia/200",
-		level: 13,
-		points: 2680,
+		stars: 2680,
 		rank: 3,
-		streak: 15
+		streak: 15,
+		currentLanguage: { code: "es", level: 13, emoji: "🇪🇸" }
 	},
 	{
 		id: "4",
 		name: "Lucas Kim",
 		avatarUrl: "https://picsum.photos/seed/lucas/200",
-		level: 12,
-		points: 2450,
+		stars: 2450,
 		rank: 4,
-		streak: 6
+		streak: 6,
+		currentLanguage: { code: "es", level: 12, emoji: "🇪🇸" }
 	},
 	{
 		id: "5",
 		name: "Olivia Patel",
 		avatarUrl: "https://picsum.photos/seed/olivia/200",
-		level: 12,
-		points: 2380,
+		stars: 2380,
 		rank: 5,
-		streak: 9
+		streak: 9,
+		currentLanguage: { code: "es", level: 12, emoji: "🇪🇸" }
 	},
 	{
 		id: "6",
 		name: "Noah Williams",
 		avatarUrl: "https://picsum.photos/seed/noah/200",
-		level: 11,
-		points: 2290,
+		stars: 2290,
 		rank: 6,
-		streak: 4
+		streak: 4,
+		currentLanguage: { code: "es", level: 11, emoji: "🇪🇸" }
 	},
 	{
 		id: "7",
 		name: "Ava Johnson",
 		avatarUrl: "https://picsum.photos/seed/ava/200",
-		level: 11,
-		points: 2180,
+		stars: 2180,
 		rank: 7,
-		streak: 7
+		streak: 7,
+		currentLanguage: { code: "es", level: 11, emoji: "🇪🇸" }
 	},
 	{
 		id: "8",
 		name: "Ethan Brown",
 		avatarUrl: "https://picsum.photos/seed/ethan/200",
-		level: 10,
-		points: 2050,
+		stars: 2050,
 		rank: 8,
-		streak: 5
+		streak: 5,
+		currentLanguage: { code: "es", level: 10, emoji: "🇪🇸" }
 	}
 ]
 

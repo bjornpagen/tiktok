@@ -1,14 +1,12 @@
 import "server-only"
-import type { UserStats } from "./types"
+import type { UserStats, LanguageLevel } from "./types"
 
 export interface UserProfile {
 	id: string
 	name: string
 	avatarUrl: string
 	bio: string
-	level: number
 	stars: number
-	starsToNextLevel: number
 	stats: UserStats
 	interests: string[]
 	achievements: {
@@ -19,10 +17,7 @@ export interface UserProfile {
 		dateEarned: string
 	}[]
 	currentLanguage: string
-	availableLanguages: {
-		code: string
-		name: string
-	}[]
+	languageLevels: LanguageLevel[]
 }
 
 const dummyProfile: UserProfile = {
@@ -30,9 +25,7 @@ const dummyProfile: UserProfile = {
 	name: "Alex Chen",
 	avatarUrl: "https://picsum.photos/seed/alex/200",
 	bio: "I love learning new languages! Currently focused on Spanish. 🌟",
-	level: 12,
 	stars: 2450,
-	starsToNextLevel: 550,
 	stats: {
 		challengesCompleted: 45,
 		wordsLearned: 230,
@@ -64,12 +57,12 @@ const dummyProfile: UserProfile = {
 		}
 	],
 	currentLanguage: "es",
-	availableLanguages: [
-		{ code: "es", name: "Spanish" },
-		{ code: "fr", name: "French" },
-		{ code: "de", name: "German" },
-		{ code: "it", name: "Italian" },
-		{ code: "pt", name: "Portuguese" }
+	languageLevels: [
+		{ code: "es", name: "Spanish", level: 12, emoji: "🇪🇸" },
+		{ code: "fr", name: "French", level: 5, emoji: "🇫🇷" },
+		{ code: "de", name: "German", level: 3, emoji: "🇩🇪" },
+		{ code: "it", name: "Italian", level: 1, emoji: "🇮🇹" },
+		{ code: "pt", name: "Portuguese", level: 1, emoji: "🇵🇹" }
 	]
 }
 

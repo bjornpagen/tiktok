@@ -2,12 +2,18 @@ import { ScrollView, View, Text, StyleSheet } from "react-native"
 import BottomTabBar from "@/components/BottomTabBar"
 import ProfileHeader from "@/components/ProfileHeader"
 import ProfileStats from "@/components/ProfileStats"
+import LanguageSelector from "@/components/LanguageSelector"
 import { fetchUserProfile, updateUserLanguage } from "@/server/data/profile"
 import { Suspense } from "react"
 import LoadingProfile from "@/components/LoadingProfile"
 
 export default async function ProfilePage() {
 	const profile = await fetchUserProfile()
+
+	// Get current language level
+	const currentLangDetails = profile.languageLevels.find(
+		(lang) => lang.code === profile.currentLanguage
+	)
 
 	return (
 		<View style={styles.container}>
@@ -17,24 +23,32 @@ export default async function ProfilePage() {
 					Track your progress and manage your learning journey
 				</Text>
 			</View>
-			<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+			<ScrollView
+				style={styles.content}
+				contentContainerStyle={styles.contentContainer}
+				showsVerticalScrollIndicator={false}
+			>
 				<Suspense fallback={<LoadingProfile />}>
 					<ProfileHeader
 						profile={{
 							name: profile.name,
 							avatarUrl: profile.avatarUrl,
 							bio: profile.bio,
-							level: profile.level,
 							stars: profile.stars,
-							starsToNextLevel: profile.starsToNextLevel
+							currentLanguage: currentLangDetails || {
+								code: profile.currentLanguage,
+								level: 1,
+								emoji: "🌎",
+								name: "Unknown"
+							}
 						}}
 					/>
-					<ProfileStats
-						stats={profile.stats}
+					<LanguageSelector
 						currentLanguage={profile.currentLanguage}
-						availableLanguages={profile.availableLanguages}
+						languageLevels={profile.languageLevels}
 						onLanguageChange={updateUserLanguage}
 					/>
+					<ProfileStats stats={profile.stats} />
 				</Suspense>
 			</ScrollView>
 			<BottomTabBar />
@@ -66,5 +80,8 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		flex: 1
+	},
+	contentContainer: {
+		padding: 16
 	}
 })
