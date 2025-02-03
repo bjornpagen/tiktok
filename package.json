@@ -38,8 +38,7 @@
     "react-native-screens": "~4.4.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "react-server-dom-webpack": "^19.0.0-rc-6230622a1a-20240610",
-    "react-native-reanimated": "~3.16.1"
+    "react-server-dom-webpack": "^19.0.0-rc-6230622a1a-20240610"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

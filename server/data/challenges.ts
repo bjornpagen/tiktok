@@ -12,6 +12,24 @@ export interface Challenge {
 	deadline: string // ISO date string
 }
 
+interface Word {
+	word: string
+	learned: boolean
+	lastPracticed?: string
+}
+
+interface Peer {
+	id: string
+	name: string
+	progress: number
+	avatar?: string
+}
+
+interface ChallengeDetails extends Challenge {
+	words: Word[]
+	peers: Peer[]
+}
+
 const dummyChallenges: Challenge[] = [
 	{
 		id: "1",
@@ -87,4 +105,36 @@ export async function fetchChallenges() {
 	// Simulate network delay
 	await new Promise((resolve) => setTimeout(resolve, 1000))
 	return dummyChallenges
+}
+
+export async function fetchChallengeDetails(
+	id: string
+): Promise<ChallengeDetails> {
+	// This would normally fetch from an API
+	// Mocked data for now
+	return {
+		id,
+		title: "Master Basic Greetings",
+		description:
+			"Learn and practice essential greeting phrases to start conversations confidently.",
+		points: 100,
+		deadline: new Date(Date.now() + 172800000).toISOString(), // 48 hours from now
+		progress: {
+			current: 3,
+			total: 5
+		},
+		words: [
+			{ word: "Hello", learned: true, lastPracticed: "2024-03-10" },
+			{ word: "Goodbye", learned: true, lastPracticed: "2024-03-09" },
+			{ word: "Good morning", learned: true, lastPracticed: "2024-03-08" },
+			{ word: "Good evening", learned: false },
+			{ word: "See you later", learned: false }
+		],
+		peers: [
+			{ id: "1", name: "Emma", progress: 80 },
+			{ id: "2", name: "Liam", progress: 60 },
+			{ id: "3", name: "Olivia", progress: 40 },
+			{ id: "4", name: "Noah", progress: 20 }
+		]
+	}
 }

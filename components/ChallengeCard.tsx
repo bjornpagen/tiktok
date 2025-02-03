@@ -1,12 +1,13 @@
 "use client"
 
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { useEffect, useState } from "react"
 import type { Challenge } from "@/server/data/challenges"
 
-interface ChallengeCardProps {
+export interface ChallengeCardProps {
 	challenge: Challenge
+	onPress?: () => void
 }
 
 function getTimeRemaining(deadline: string): string {
@@ -27,7 +28,10 @@ function getTimeRemaining(deadline: string): string {
 	return `${days}d left`
 }
 
-export default function ChallengeCard({ challenge }: ChallengeCardProps) {
+export default function ChallengeCard({
+	challenge,
+	onPress
+}: ChallengeCardProps) {
 	const [timeLeft, setTimeLeft] = useState(() =>
 		getTimeRemaining(challenge.deadline)
 	)
@@ -43,31 +47,33 @@ export default function ChallengeCard({ challenge }: ChallengeCardProps) {
 	}, [challenge.deadline])
 
 	return (
-		<View style={styles.card}>
-			<View style={styles.header}>
-				<Text style={styles.title}>{challenge.title}</Text>
-				<View style={styles.points}>
-					<Ionicons name="star" size={16} color="#FFD700" />
-					<Text style={styles.pointsText}>{challenge.points}</Text>
+		<TouchableOpacity onPress={onPress}>
+			<View style={styles.card}>
+				<View style={styles.header}>
+					<Text style={styles.title}>{challenge.title}</Text>
+					<View style={styles.points}>
+						<Ionicons name="star" size={16} color="#FFD700" />
+						<Text style={styles.pointsText}>{challenge.points}</Text>
+					</View>
+				</View>
+
+				<Text style={styles.description}>{challenge.description}</Text>
+
+				<View style={styles.progressContainer}>
+					<View style={styles.progressBar}>
+						<View style={[styles.progressFill, { width: `${progress}%` }]} />
+					</View>
+					<Text style={styles.progressText}>
+						{challenge.progress.current}/{challenge.progress.total}
+					</Text>
+				</View>
+
+				<View style={styles.timeContainer}>
+					<Ionicons name="time-outline" size={14} color="#666" />
+					<Text style={styles.timeText}>{timeLeft}</Text>
 				</View>
 			</View>
-
-			<Text style={styles.description}>{challenge.description}</Text>
-
-			<View style={styles.progressContainer}>
-				<View style={styles.progressBar}>
-					<View style={[styles.progressFill, { width: `${progress}%` }]} />
-				</View>
-				<Text style={styles.progressText}>
-					{challenge.progress.current}/{challenge.progress.total}
-				</Text>
-			</View>
-
-			<View style={styles.timeContainer}>
-				<Ionicons name="time-outline" size={14} color="#666" />
-				<Text style={styles.timeText}>{timeLeft}</Text>
-			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }
 

@@ -1,12 +1,14 @@
 "use client"
 
-import { useState, useRef } from "react"
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native"
-import Animated, {
-	useAnimatedScrollHandler,
-	useSharedValue,
-	withSpring
-} from "react-native-reanimated"
+import { useRef, useState } from "react"
+import {
+	View,
+	Text,
+	Image,
+	StyleSheet,
+	Dimensions,
+	FlatList
+} from "react-native"
 
 // Get screen dimensions
 const { width, height } = Dimensions.get("window")
@@ -48,30 +50,10 @@ interface VideoFeedProps {
 
 export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 	const [videos] = useState(initialVideos)
-	const flatListRef = useRef<Animated.FlatList<Video>>(null)
-	const translationY = useSharedValue(0)
-
-	const scrollHandler = useAnimatedScrollHandler({
-		onScroll: (event) => {
-			translationY.value = event.contentOffset.y
-		},
-		onEndDrag: (event) => {
-			const offsetY = event.contentOffset.y
-			const snapPoint = Math.round(offsetY / screenHeight) * screenHeight
-
-			translationY.value = withSpring(snapPoint, {
-				damping: 50,
-				stiffness: 300,
-				mass: 0.5,
-				overshootClamping: true
-			})
-
-			flatListRef.current?.scrollToOffset({ offset: snapPoint, animated: true })
-		}
-	})
+	const flatListRef = useRef<FlatList<Video>>(null)
 
 	return (
-		<Animated.FlatList
+		<FlatList
 			ref={flatListRef}
 			data={videos}
 			renderItem={({ item }) => (
@@ -82,7 +64,6 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 			snapToInterval={screenHeight}
 			decelerationRate="fast"
 			showsVerticalScrollIndicator={false}
-			onScroll={scrollHandler}
 			scrollEventThrottle={16}
 		/>
 	)

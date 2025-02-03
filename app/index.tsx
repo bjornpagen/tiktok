@@ -10,11 +10,11 @@ export default async function HomePage() {
 
 	return (
 		<View style={styles.container}>
-			<Suspense fallback={<View />}>
-				<View style={styles.feedContainer}>
+			<View style={styles.feedContainer}>
+				<Suspense fallback={<View />}>
 					<VideoFeed initialVideos={initialVideos} />
-				</View>
-			</Suspense>
+				</Suspense>
+			</View>
 			<BottomTabBar />
 		</View>
 	)

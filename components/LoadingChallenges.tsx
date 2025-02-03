@@ -1,17 +1,10 @@
-"use client"
-
 import { View, StyleSheet } from "react-native"
-import Animated, { FadeInDown } from "react-native-reanimated"
 
 export default function LoadingChallenges() {
 	return (
 		<View style={styles.loadingContainer}>
 			{[1, 2, 3].map((i) => (
-				<Animated.View
-					key={i}
-					entering={FadeInDown.delay(i * 200)}
-					style={styles.loadingCard}
-				/>
+				<View key={i} style={styles.loadingCard} />
 			))}
 		</View>
 	)

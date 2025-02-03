@@ -1,9 +1,8 @@
-"use client"
-
-import { StyleSheet } from "react-native"
-import Animated, { FadeInDown } from "react-native-reanimated"
+import { ScrollView, StyleSheet, View } from "react-native"
 import ChallengeCard from "./ChallengeCard"
 import type { Challenge } from "@/server/data/challenges"
+import { Link } from "expo-router"
+import { Suspense } from "react"
 
 interface ChallengeListProps {
 	challenges: Challenge[]
@@ -11,26 +10,21 @@ interface ChallengeListProps {
 
 export default function ChallengeList({ challenges }: ChallengeListProps) {
 	return (
-		<Animated.ScrollView
+		<ScrollView
 			style={styles.scrollView}
 			contentContainerStyle={styles.scrollContent}
 			showsVerticalScrollIndicator={false}
 		>
-			{challenges.map((challenge, index) => (
-				<Animated.View
-					key={challenge.id}
-					entering={FadeInDown.delay(index * 200)}
-				>
-					<ChallengeCard
-						challenge={challenge}
-						onPress={() => {
-							// TODO: Navigate to challenge detail screen
-							console.log("Challenge pressed:", challenge.id)
-						}}
-					/>
-				</Animated.View>
+			{challenges.map((challenge) => (
+				<View key={challenge.id}>
+					<Suspense fallback={<View />}>
+						<Link href={`/challenges/${challenge.id}`} asChild>
+							<ChallengeCard challenge={challenge} />
+						</Link>
+					</Suspense>
+				</View>
 			))}
-		</Animated.ScrollView>
+		</ScrollView>
 	)
 }
 

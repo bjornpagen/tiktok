@@ -1,8 +1,6 @@
 import { View, StyleSheet } from "react-native"
-import { Suspense } from "react"
 import BottomTabBar from "@/components/BottomTabBar"
 import ChallengeList from "@/components/ChallengeList"
-import LoadingChallenges from "@/components/LoadingChallenges"
 import ServerChallengeList from "@/server/components/ServerChallengeList.server"
 
 export default async function ChallengesPage() {
@@ -10,9 +8,7 @@ export default async function ChallengesPage() {
 
 	return (
 		<View style={styles.container}>
-			<Suspense fallback={<LoadingChallenges />}>
-				<ChallengeList challenges={challenges} />
-			</Suspense>
+			<ChallengeList challenges={challenges} />
 			<BottomTabBar />
 		</View>
 	)
