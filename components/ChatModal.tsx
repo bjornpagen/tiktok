@@ -64,12 +64,26 @@ export function ChatModal({ visible, onClose, videoTitle }: ChatModalProps) {
 	return (
 		<Modal
 			visible={visible}
-			animationType="fade"
+			animationType="slide"
 			transparent={true}
 			onRequestClose={onClose}
 		>
-			<View style={styles.modalContainer}>
-				<View style={styles.modalContent}>
+			<View
+				style={[
+					styles.modalContainer,
+					{
+						backgroundColor: "rgba(0, 0, 0, 0.3)"
+					}
+				]}
+			>
+				<View
+					style={[
+						styles.modalContent,
+						{
+							transform: [{ scale: visible ? 1 : 0.9 }]
+						}
+					]}
+				>
 					<View style={styles.header}>
 						<Text style={styles.title}>Practice Time! 🌟</Text>
 						<TouchableOpacity onPress={onClose} style={styles.closeButton}>
