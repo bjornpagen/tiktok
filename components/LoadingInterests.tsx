@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 
 export default function LoadingInterests() {
 	return (
@@ -13,7 +13,7 @@ export default function LoadingInterests() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		padding: 16
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
 		borderRadius: 12,
 		marginBottom: 16
 	}
-})
+} as const

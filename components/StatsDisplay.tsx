@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text } from "react-native"
 import type { LanguageLevel } from "@/server/data/types"
 
 interface StatsDisplayProps {
@@ -29,7 +29,7 @@ export default function StatsDisplay({
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	statsRow: {
 		width: "100%",
 		flexDirection: "row",
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
 		backgroundColor: "#F0F0F0",
 		marginHorizontal: 8
 	}
-})
+} as const

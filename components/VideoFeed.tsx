@@ -4,7 +4,6 @@ import { useRef, useState } from "react"
 import {
 	View,
 	Text,
-	StyleSheet,
 	Dimensions,
 	FlatList,
 	type NativeSyntheticEvent,
@@ -111,7 +110,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#000"
@@ -178,4 +177,4 @@ const styles = StyleSheet.create({
 		right: 16,
 		zIndex: 1000
 	}
-})
+} as const

@@ -1,13 +1,6 @@
 "use client"
 
-import {
-	View,
-	Text,
-	Image,
-	StyleSheet,
-	ScrollView,
-	TouchableOpacity
-} from "react-native"
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import type { LeaderboardEntry } from "@/server/data/leaderboard"
 import { Link } from "expo-router"
@@ -61,7 +54,7 @@ export default function LeaderboardList({ entries }: LeaderboardListProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -118,4 +111,4 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "#666"
 	}
-})
+} as const

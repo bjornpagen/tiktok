@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 
 export default function LoadingChallenges() {
 	return (
@@ -10,7 +10,7 @@ export default function LoadingChallenges() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	loadingContainer: {
 		flex: 1,
 		padding: 16
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
 		borderRadius: 16,
 		marginBottom: 16
 	}
-})
+} as const

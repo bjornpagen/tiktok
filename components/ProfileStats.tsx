@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text } from "react-native"
 import StatsGrid from "./StatsGrid"
 import type { UserStats } from "@/server/data/types"
 
@@ -17,7 +17,7 @@ export default function ProfileStats({ stats }: ProfileStatsProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	section: {
 		marginBottom: 16
 	},
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
 		color: "#333",
 		marginBottom: 16
 	}
-})
+} as const

@@ -1,12 +1,6 @@
 "use client"
 
-import {
-	View,
-	Text,
-	StyleSheet,
-	ScrollView,
-	TouchableOpacity
-} from "react-native"
+import { View, Text, ScrollView, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import type {
 	Challenge,
@@ -110,7 +104,7 @@ export default function ChallengeList({ challenges }: ChallengeListProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -169,4 +163,4 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		fontWeight: "600"
 	}
-})
+} as const

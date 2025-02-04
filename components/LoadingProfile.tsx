@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 
 export default function LoadingProfile() {
 	return (
@@ -21,7 +21,7 @@ export default function LoadingProfile() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		padding: 16
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		marginBottom: 12
 	}
-})
+} as const

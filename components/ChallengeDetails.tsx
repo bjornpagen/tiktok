@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native"
+import { View, Text, ScrollView } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Link } from "expo-router"
 
@@ -163,7 +163,7 @@ export default function ChallengeDetails({ details }: ChallengeDetailsProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		padding: 16
@@ -302,4 +302,4 @@ const styles = StyleSheet.create({
 		color: "#666",
 		marginLeft: 8
 	}
-})
+} as const

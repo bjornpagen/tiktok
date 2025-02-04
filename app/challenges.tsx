@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text } from "react-native"
 import BottomTabBar from "@/components/BottomTabBar"
 import ChallengeList from "@/components/ChallengeList"
 import { fetchChallenges } from "@/server/data/challenges"
@@ -20,7 +20,7 @@ export default async function ChallengesPage() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
 		color: "#666",
 		lineHeight: 20
 	}
-})
+} as const

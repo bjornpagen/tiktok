@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native"
+import { View, Text, Image, ScrollView } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Link } from "expo-router"
 import type { LeaderboardEntryDetails } from "@/server/data/leaderboard"
@@ -62,7 +62,7 @@ export default function Details({ details }: DetailsProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		color: "#999"
 	}
-})
+} as const

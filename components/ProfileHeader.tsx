@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, Text, Image } from "react-native"
 import type { LanguageLevel } from "@/server/data/types"
 import StatsDisplay from "./StatsDisplay"
 import { formatNumber } from "@/utils/format"
@@ -29,7 +29,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		alignItems: "center",
 		padding: 20,
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
 		backgroundColor: "#F0F0F0",
 		marginHorizontal: 8
 	}
-})
+} as const

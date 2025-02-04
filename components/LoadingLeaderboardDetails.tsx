@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 
 export default function LoadingLeaderboardDetails() {
 	return (
@@ -34,7 +34,7 @@ export default function LoadingLeaderboardDetails() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		padding: 16,
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
 		backgroundColor: "#E0E0E0",
 		borderRadius: 8
 	}
-})
+} as const

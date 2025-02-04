@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { useEffect, useState } from "react"
 import type { Challenge } from "@/server/data/challenges"
@@ -104,7 +104,7 @@ export default function ChallengeCard({
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	card: {
 		backgroundColor: "white",
 		borderRadius: 12,
@@ -174,4 +174,4 @@ const styles = StyleSheet.create({
 		marginBottom: 12,
 		lineHeight: 20
 	}
-})
+} as const

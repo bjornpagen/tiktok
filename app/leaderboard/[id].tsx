@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 import { Suspense } from "react"
 import { fetchLeaderboardEntryDetails } from "@/server/data/leaderboard"
 import LeaderboardEntryDetails from "@/components/LeaderboardEntryDetails"
@@ -20,9 +20,9 @@ export default async function LeaderboardEntryPage({
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
 	}
-})
+} as const

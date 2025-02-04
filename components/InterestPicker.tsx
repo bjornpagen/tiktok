@@ -1,12 +1,6 @@
 "use client"
 
-import {
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	ScrollView
-} from "react-native"
+import { View, Text, TouchableOpacity, ScrollView } from "react-native"
 import { useState } from "react"
 import type { Interest } from "@/server/data/interests"
 
@@ -104,7 +98,7 @@ export default function InterestPicker({
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -161,4 +155,4 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: "500"
 	}
-})
+} as const

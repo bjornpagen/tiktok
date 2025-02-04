@@ -1,4 +1,4 @@
-import { TouchableOpacity, StyleSheet, View, Text } from "react-native"
+import { TouchableOpacity, View, Text } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 
 interface ChatButtonProps {
@@ -20,7 +20,7 @@ export function ChatButton({ onPress }: ChatButtonProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	button: {
 		position: "absolute",
 		right: 16,
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
 		fontWeight: "600",
 		marginLeft: 6
 	}
-})
+} as const

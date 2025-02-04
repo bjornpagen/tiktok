@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity } from "react-native"
 import type { LanguageLevel } from "@/types/profile"
 import { useState } from "react"
 
@@ -70,7 +70,7 @@ export default function LanguageSelector({
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		backgroundColor: "white",
 		borderRadius: 12,
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
 	disabledButton: {
 		opacity: 0.6
 	}
-})
+} as const

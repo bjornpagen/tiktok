@@ -5,7 +5,6 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	StyleSheet,
 	KeyboardAvoidingView,
 	Platform,
 	ScrollView
@@ -123,7 +122,7 @@ export function ChatModal({ visible, onClose, videoTitle }: ChatModalProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	modalContainer: {
 		flex: 1,
 		backgroundColor: "rgba(0, 0, 0, 0.5)"
@@ -207,4 +206,4 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center"
 	}
-})
+} as const

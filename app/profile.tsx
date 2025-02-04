@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, StyleSheet, SafeAreaView } from "react-native"
+import { ScrollView, View, Text, SafeAreaView } from "react-native"
 import BottomTabBar from "@/components/BottomTabBar"
 import ProfileHeader from "@/components/ProfileHeader"
 import ProfileStats from "@/components/ProfileStats"
@@ -61,7 +61,7 @@ export default async function ProfilePage() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
 		right: 0,
 		backgroundColor: "white"
 	}
-})
+} as const

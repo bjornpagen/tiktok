@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 import { fetchInitialVideos } from "@/server/data/videos"
 import VideoFeed from "@/components/VideoFeed"
 import BottomTabBar from "@/components/BottomTabBar"
@@ -20,7 +20,7 @@ export default async function HomePage() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#000"
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
 	feedContainer: {
 		flex: 1
 	}
-})
+} as const

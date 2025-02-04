@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import type { UserStats } from "@/server/data/types"
 
@@ -36,7 +36,7 @@ export default function StatsGrid({ stats }: StatsGridProps) {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	statsGrid: {
 		flexDirection: "row",
 		flexWrap: "wrap",
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
 		color: "#666",
 		marginTop: 4
 	}
-})
+} as const

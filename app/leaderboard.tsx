@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text } from "react-native"
 import { Suspense } from "react"
 import { fetchLeaderboard } from "@/server/data/leaderboard"
 import LeaderboardList from "@/components/LeaderboardList"
@@ -24,7 +24,7 @@ export default async function LeaderboardPage() {
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		backgroundColor: "#F5F5F5"
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
 		color: "#666",
 		lineHeight: 20
 	}
-})
+} as const
