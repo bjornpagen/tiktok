@@ -1,5 +1,3 @@
-"use client"
-
 import { View, Text, StyleSheet } from "react-native"
 import { Suspense } from "react"
 import { fetchLeaderboard } from "@/server/data/leaderboard"

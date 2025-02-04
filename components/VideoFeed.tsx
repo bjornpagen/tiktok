@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
 		padding: 16
 	},
 	contentBubble: {
-		backgroundColor: "#4A90E2",
-		borderRadius: 20,
+		backgroundColor: "rgba(74, 144, 226, 0.9)",
+		borderRadius: 16,
 		padding: 12,
 		maxWidth: "65%",
 		marginLeft: 8,
@@ -146,15 +146,21 @@ const styles = StyleSheet.create({
 		elevation: 5
 	},
 	title: {
-		fontSize: 16,
+		fontSize: 18,
 		fontWeight: "700",
 		color: "#ffffff",
-		marginBottom: 4
+		marginBottom: 4,
+		textShadowColor: "rgba(0, 0, 0, 0.75)",
+		textShadowOffset: { width: -1, height: 1 },
+		textShadowRadius: 10
 	},
 	description: {
-		fontSize: 13,
+		fontSize: 14,
 		color: "#ffffff",
-		lineHeight: 18
+		lineHeight: 20,
+		textShadowColor: "rgba(0, 0, 0, 0.75)",
+		textShadowOffset: { width: -1, height: 1 },
+		textShadowRadius: 10
 	},
 	loaderContainer: {
 		width: width,
@@ -165,7 +171,7 @@ const styles = StyleSheet.create({
 	},
 	chatButtonContainer: {
 		position: "absolute",
-		bottom: 20, // Matches the titleContainer bottom in VideoCard
+		bottom: 20,
 		right: 16,
 		zIndex: 1000
 	}
