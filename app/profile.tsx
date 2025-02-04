@@ -47,6 +47,7 @@ export default async function ProfilePage() {
 						currentLanguage={profile.currentLanguage}
 						languageLevels={profile.languageLevels}
 						onLanguageChange={async (code) => {
+							"use server"
 							await updateUserLanguage(code)
 						}}
 					/>

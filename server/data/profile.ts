@@ -24,7 +24,7 @@ const dummyProfile: UserProfile = {
 	id: "1",
 	name: "Alex Chen",
 	avatarUrl: "https://picsum.photos/seed/alex/200",
-	bio: "I love learning new languages! Currently focused on Spanish. 🌟",
+	bio: "I love learning new languages! Currently focused on Arabic. 🌟",
 	stars: 2450,
 	stats: {
 		challengesCompleted: 45,
@@ -56,13 +56,14 @@ const dummyProfile: UserProfile = {
 			dateEarned: "2024-03-10"
 		}
 	],
-	currentLanguage: "es",
+	currentLanguage: "ar",
 	languageLevels: [
-		{ code: "es", name: "Spanish", level: 12, emoji: "🇪🇸" },
-		{ code: "fr", name: "French", level: 5, emoji: "🇫🇷" },
-		{ code: "de", name: "German", level: 3, emoji: "🇩🇪" },
-		{ code: "it", name: "Italian", level: 1, emoji: "🇮🇹" },
-		{ code: "pt", name: "Portuguese", level: 1, emoji: "🇵🇹" }
+		{ code: "ar", name: "Arabic", level: 12, emoji: "🇸🇦" },
+		{ code: "zh", name: "Chinese", level: 5, emoji: "🇨🇳" },
+		{ code: "en", name: "English", level: 15, emoji: "🇬🇧" },
+		{ code: "fr", name: "French", level: 3, emoji: "🇫🇷" },
+		{ code: "ru", name: "Russian", level: 1, emoji: "🇷🇺" },
+		{ code: "es", name: "Spanish", level: 8, emoji: "🇪🇸" }
 	]
 }
 
@@ -73,7 +74,6 @@ export async function fetchUserProfile() {
 }
 
 export async function updateUserLanguage(languageCode: string) {
-	"use server"
 	// Simulate network delay
 	await new Promise((resolve) => setTimeout(resolve, 500))
 	// In a real app, this would update the database
