@@ -4,54 +4,61 @@ import { useRef, useState } from "react"
 import {
 	View,
 	Text,
-	Image,
 	StyleSheet,
 	Dimensions,
 	FlatList,
 	type NativeSyntheticEvent,
 	type NativeScrollEvent
 } from "react-native"
+import { useVideoPlayer, VideoView } from "expo-video"
 import { ChatButton } from "./ChatButton"
 import { ChatModal } from "./ChatModal"
 
-// Get screen dimensions
+// Constants
 const { width, height } = Dimensions.get("window")
-
-// Add bottom tab bar height constant
 const TAB_BAR_HEIGHT = 70
-
-// Update height calculation to account for tab bar
 const screenHeight = height - TAB_BAR_HEIGHT
+const PLAYBACK_ID = "bO01scxnR7LmZ7OAmuWy3Ztrbzp4yxH00dJew5XJW5tno"
 
 // Move interface declarations up
 interface VideoCardProps {
 	title: string
 	description: string
-	thumbnailUrl: string
 }
 
 interface Video {
 	id: string
 	title: string
 	description: string
-	thumbnailUrl: string
 }
 
-const VideoCard = ({ title, description, thumbnailUrl }: VideoCardProps) => (
-	<View style={[styles.card, { height: screenHeight }]}>
-		<Image
-			source={{ uri: thumbnailUrl }}
-			style={styles.thumbnail}
-			resizeMode="cover"
-		/>
-		<View style={styles.titleContainer}>
-			<View style={styles.contentBubble}>
-				<Text style={styles.title}>{title}</Text>
-				<Text style={styles.description}>{description}</Text>
+const VideoCard = ({ title, description }: VideoCardProps) => {
+	const videoSource =
+		"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+	const player = useVideoPlayer(videoSource, (player) => {
+		player.loop = true
+		player.muted = true
+		player.play()
+	})
+
+	return (
+		<View style={[styles.card, { height: screenHeight }]}>
+			<VideoView
+				style={styles.video}
+				player={player}
+				allowsFullscreen
+				allowsPictureInPicture
+				nativeControls={false}
+			/>
+			<View style={styles.titleContainer}>
+				<View style={styles.contentBubble}>
+					<Text style={styles.title}>{title}</Text>
+					<Text style={styles.description}>{description}</Text>
+				</View>
 			</View>
 		</View>
-	</View>
-)
+	)
+}
 
 interface VideoFeedProps {
 	initialVideos: Video[]
@@ -75,11 +82,7 @@ export default function VideoFeed({ initialVideos }: VideoFeedProps) {
 				ref={flatListRef}
 				data={videos}
 				renderItem={({ item }) => (
-					<VideoCard
-						title={item.title}
-						description={item.description}
-						thumbnailUrl={item.thumbnailUrl}
-					/>
+					<VideoCard title={item.title} description={item.description} />
 				)}
 				keyExtractor={(item) => item.id}
 				pagingEnabled
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#000",
 		position: "relative"
 	},
-	thumbnail: {
+	video: {
 		width: "100%",
 		height: "100%",
 		position: "absolute"
