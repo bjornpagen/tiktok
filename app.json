@@ -1,43 +1,54 @@
 {
-	"expo": {
-		"name": "tiktok",
-		"slug": "tiktok",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/images/icon.png",
-		"scheme": "myapp",
-		"userInterfaceStyle": "automatic",
-		"newArchEnabled": true,
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			}
-		},
-		"web": {
-			"bundler": "metro",
-			"output": "server",
-			"favicon": "./assets/images/favicon.png"
-		},
-		"plugins": [
-			"expo-router",
-			[
-				"expo-splash-screen",
-				{
-					"image": "./assets/images/splash-icon.png",
-					"imageWidth": 200,
-					"resizeMode": "contain",
-					"backgroundColor": "#ffffff"
-				}
-			]
-		],
-		"experiments": {
-			"typedRoutes": true,
-			"reactServerFunctions": true,
-			"reactServerComponentRoutes": true
-		}
-	}
+  "expo": {
+    "name": "tiktok",
+    "slug": "tiktok",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bjornpagen.tiktok",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "server",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactServerFunctions": true,
+      "reactServerComponentRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "807d25ec-a932-4616-86c2-38ce0e1f6f54"
+      }
+    },
+    "owner": "tpit0ypd"
+  }
 }
